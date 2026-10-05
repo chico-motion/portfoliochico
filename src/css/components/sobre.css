@@ -1,0 +1,196 @@
+/* ---------- sobre (offwhite) ---------- */
+.sobre {
+  background: var(--offwhite);
+  color: var(--preto);
+  padding: clamp(4.5rem, 10vw, 7rem) 0;
+}
+
+.sobre-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26, 21, 18, 0.7);
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr 0.45fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+/* ---------- coluna 1: foto + nome ---------- */
+.sobre-foto {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.sobre-barra {
+  display: block;
+  width: 26%;
+  height: 8px;
+  background: var(--verde);
+  margin-bottom: 1.1rem;
+}
+
+.photo-sobre {
+  aspect-ratio: 3/2; /* paisagem */
+  margin: 0;
+  border-color: rgba(26, 21, 18, 0.35);
+  color: rgba(26, 21, 18, 0.45);
+  background: rgba(26, 21, 18, 0.08);
+}
+
+/* nome: puxa pra cima do rodapé da foto com margem negativa */
+.sobre-nome {
+  position: relative;
+  z-index: 2;
+  margin: -0.9em 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.sobre-nome .linha-1,
+.sobre-nome .linha-2 {
+  display: block;
+}
+.sobre-nome .linha-1,
+.sobre-nome .linha-2 {
+  color: var(--verde-escuro);
+}
+
+.sobre-tag {
+  margin: 1.1rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(26, 21, 18, 0.85);
+}
+
+/* ---------- coluna 2: bio ---------- */
+.sobre-bio {
+  padding-top: 1.4rem;
+}
+
+.sobre-bio-titulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.2rem);
+  color: var(--preto);
+}
+.sobre-bio p {
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.7;
+  color: rgba(26, 21, 18, 0.88);
+  margin-bottom: 1.2rem;
+  max-width: 46ch;
+}
+.sobre-bio p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- coluna 3: side info ---------- */
+.sobre-side {
+  border-left: 1px solid rgba(26, 21, 18, 0.28);
+  padding: 1.4rem 0 1.4rem clamp(1.2rem, 2.5vw, 2rem);
+  display: grid;
+  gap: clamp(1.6rem, 3vw, 2.2rem);
+  align-content: start;
+  padding-bottom: clamp(4rem, 11vw, 8rem);
+}
+
+.sobre-bloco-titulo {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--preto);
+  margin: 0 0 0.9rem;
+}
+
+/* softwares: ícone quadrado + texto */
+.sobre-softwares {
+  display: grid;
+  gap: 0.55rem;
+}
+.sobre-softwares li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(26, 21, 18, 0.85);
+}
+.sw-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--preto);
+  color: var(--offwhite);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.62rem; 
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+/* divisória entre os blocos */
+.sobre-bloco--idiomas {
+  border-top: 1px solid rgba(26, 21, 18, 0.28);
+  padding-top: clamp(1.4rem, 2.5vw, 1.9rem);
+}
+
+/* idiomas: bandeira + texto */
+.sobre-idiomas {
+  display: grid;
+  gap: 0.55rem;
+}
+.sobre-idiomas li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(26, 21, 18, 0.85);
+  transition: filter 0.25s ease;
+}
+/* ---------- responsivo ---------- */
+@media (max-width: 900px) {
+  .sobre-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 6vw, 4rem);
+  }
+  .sobre-side {
+    border-left: none;
+    border-top: 1px solid rgba(26, 21, 18, 0.28);
+    padding: clamp(2rem, 4vw, 2.6rem) 0 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .sobre-bloco--idiomas {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+@media (max-width: 520px) {
+  .sobre-side {
+    grid-template-columns: 1fr;
+  }
+  .sobre-nome {
+    font-size: clamp(2.4rem, 14vw, 4rem);
+  }
+}

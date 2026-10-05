@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chico Martins · Works</title>
+    <link rel="canonical" href="https://chicomartins.com.br/works.html" />
+    <link rel="preload" href="/fonts/chronicle-display/chronicle-display-light.woff2"
+      as="font" type="font/woff2" crossorigin />
+    <meta
+      name="description"
+      content="Seleção de projetos de edição e motion design de Chico Martins — Hero Base, Samsung, Flakes Power, Fortnite, Nike e mais."
+    />
+    <meta name="theme-color" content="#8C2430" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Works — Chico Martins" />
+    <meta
+      property="og:description"
+      content="Seleção de projetos de edição e motion design para marcas e creators."
+    />
+    <meta property="og:url" content="https://chicomartins.com.br/works.html" />
+    <meta property="og:image" content="https://chicomartins.com.br/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Works — Chico Martins" />
+    <meta name="twitter:description" content="Seleção de projetos de edição e motion design para marcas e creators." />
+    <meta name="twitter:image" content="https://chicomartins.com.br/assets/og-cover.jpg" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link
+      rel="preload"
+      href="/fonts/chronicle-display/chronicle-display-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/general-sans/GeneralSans-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/geist-mono/GeistMono-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/src/css/main.css" />
+  </head>
+  <body class="pagina-works">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <header class="topo"><!-- include: src/partials/header.html --></header>
+
+    <main id="conteudo">
+
+      <!-- ===== HERO ===== -->
+      <section class="pw-hero" aria-labelledby="pw-titulo">
+        <div class="pw-container">
+
+          <div class="pw-hero-topo">
+            <p class="pw-eyebrow mono reveal">// Works</p>
+            <nav class="pw-filtros" aria-label="filtrar projetos">
+              <button class="filtro is-active" data-filter="todos">Todos</button>
+              <span class="filtro-sep" aria-hidden="true">·</span>
+              <button class="filtro" data-filter="games">Games / Creators</button>
+              <span class="filtro-sep" aria-hidden="true">·</span>
+              <button class="filtro" data-filter="brands">Brands</button>
+            </nav>
+          </div>
+
+          <div class="pw-hero-titulo">
+            <h1 class="pw-titulo reveal" id="pw-titulo">Works</h1>
+
+            <div class="pw-hero-nota reveal">
+              <span class="pw-hero-regua" aria-hidden="true"></span>
+              <p>Projetos que contam<br>um pouco sobre o que faço.</p>
+            </div>
+          </div>
+
+          <svg class="pw-rabisco" viewBox="0 0 120 60" fill="none" stroke="currentColor"
+               stroke-width="3" stroke-linecap="round" aria-hidden="true">
+            <path d="M8 48 C 24 22, 44 12, 68 16 C 82 18, 88 28, 84 36 C 80 44, 68 46, 60 40 C 56 36, 56 28, 62 24 C 74 16, 92 14, 108 20 M 72 46 L 110 30"/>
+          </svg>
+
+        </div>
+      </section>
+
+      <!-- ===== GRID ===== -->
+      <section class="pw-projetos" aria-label="projetos">
+        <div class="pw-container">
+
+          <div class="pw-grid" id="works-grid" aria-live="polite">
+            <!-- preenchido via JS -->
+          </div>
+
+          <noscript>
+            <p class="pw-noscript mono">
+              Ative o JavaScript para ver os projetos em layout completo.
+            </p>
+          </noscript>
+
+          <div class="pw-rodape" id="works-rodape">
+            <span class="pw-rodape-num mono" id="works-contador">01 — 15</span>
+            <span class="pw-rodape-traco" aria-hidden="true"></span>
+            <span class="pw-rodape-scroll mono" id="works-scroll-aviso">
+              Role para ver mais
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                   stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M6 13l6 6 6-6"/>
+              </svg>
+            </span>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="rodape"><!-- include: src/partials/footer.html --></footer>
+
+    <a class="zap-float" href="https://wa.me/5547991520459" target="_blank" rel="noopener"
+       aria-label="abrir conversa no WhatsApp">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z" />
+        <path d="M9 12h.01M12 12h.01M15 12h.01" />
+      </svg>
+    </a>
+
+    <script type="module" src="/src/js/main.js"></script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="62da9571-bcb4-422a-ac10-9cae6015d0da"></script>
+  </body>
+</html>

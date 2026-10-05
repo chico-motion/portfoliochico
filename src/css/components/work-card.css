@@ -1,0 +1,239 @@
+/* ---------- works teaser (vermelho) ---------- */
+.works-teaser {
+  background: var(--vermelho-street);
+  color: var(--offwhite);
+  padding: clamp(4rem, 9vw, 6.5rem) 0;
+}
+.works-teaser .container-works {
+  width: min(1560px, 94vw);
+  margin-inline: auto;
+}
+
+/* cabeçalho: título grande à esquerda, régua, nota à direita */
+.works-head {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.works-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.85);
+  margin: 0 0 clamp(1rem, 2.5vw, 1.6rem);
+}
+
+/* linha: "Works" | régua + texto */
+.works-head-linha {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: end;
+}
+/* "Works" + régua, empilhados */
+.works-head-titulo {
+  display: grid;
+  gap: clamp(0.6rem, 1.5vw, 1rem);
+  width: max-content;
+  width: clamp(280px, 32vw, 350px);
+  max-width: 100%;
+}
+.works-titulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 7.5vw, 5.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+/* bloco da direita: régua em cima, texto embaixo */
+.works-head-blocos {
+  display: grid;
+  gap: clamp(0.7rem, 1.4vw, 1rem);
+  padding-bottom: clamp(0.35rem, 1vw, 0.7rem);
+}
+.works-head-regua {
+  display: block;
+  width: 100%;
+  max-width: clamp(200px, 30vw, 350px);
+  height: 1px;
+  background: rgba(241, 233, 220, 0.55);
+}
+/* "Meus melhores jobs." embaixo da régua */
+.works-head-nota {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--offwhite);
+}
+
+/* corpo: 3 cards + CTA vertical à direita */
+.works-corpo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+}
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.2rem, 2.5vw, 2.4rem);
+}
+
+/* card */
+.work-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  text-align: left;
+  transition: transform 0.25s ease;
+}
+.work-card:hover,
+.work-card:focus-visible {
+  transform: translateY(-4px);
+}
+/* pai: só posiciona, sem recorte */
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16/9;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+}
+
+/* filho: recorta a imagem e cuida do fundo */
+.thumb-midia {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(26, 21, 18, 0.35);
+  color: rgba(241, 233, 220, 0.7);
+  transition: background 0.25s ease;
+}
+.work-card:hover .thumb-midia,
+.work-card:focus-visible .thumb-midia {
+  background: rgba(26, 21, 18, 0.45);
+}
+/* rabisco por cima, extrapolando a borda esquerda/inferior */
+.work-rabisco {
+  position: absolute;
+  left: -12%;
+  bottom: -10%;
+  width: 22%;
+  height: auto;
+  color: var(--offwhite);
+  pointer-events: none;
+  opacity: 0.95;
+  z-index: 3;
+  transform: rotate(-2deg);
+  transform-origin: bottom left;
+}
+.work-card:hover .thumb,
+.work-card:focus-visible .thumb {
+  background: rgba(26, 21, 18, 0.45);
+}
+.work-nome {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: clamp(1.2rem, 1.7vw, 1.65rem);
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+.work-meta {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.85);
+}
+
+/* CTA "ver mais / em breve" à direita */
+.works-mais {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.9);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+  margin-top: clamp(2rem, 7.5vw, 6.5rem);
+  align-self: start;
+}
+.works-mais:hover {
+  color: var(--offwhite);
+}
+
+/* régua: controla tamanho e distância até o texto */
+.works-mais-regua {
+  display: block;
+  width: clamp(48px, 4.5vw, 72px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  flex: 0 0 auto;
+  margin-right: clamp(0.9rem, 1.4vw, 1.2rem);
+  transition: opacity 0.25s;
+}
+.works-mais:hover .works-mais-regua {
+  opacity: 0.85;
+}
+.works-mais-mover {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1vw, 0.9rem);
+  transition: transform 0.25s ease;
+}
+.works-mais:hover .works-mais-mover {
+  transform: translateX(6px);
+}
+
+/* seta: controla distância do texto */
+.works-mais svg {
+  flex: 0 0 auto;
+  opacity: 0.9;
+  margin-left: clamp(0.2rem, 1vw, 0.4rem);
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width: 1024px) {
+  .works-head-linha {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 0.8rem;
+  }
+  .works-head-regua {
+    display: none;
+  }
+  .works-head-nota {
+    white-space: normal;
+  }
+  .works-corpo {
+    grid-template-columns: 1fr;
+  }
+  .works-mais {
+    justify-self: start;
+    flex-direction: row;
+  }
+}
+@media (max-width: 680px) {
+  .works-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

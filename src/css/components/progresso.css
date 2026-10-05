@@ -1,0 +1,23 @@
+.progresso-scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+.progresso-scroll[hidden] {
+  display: none;
+}
+
+.progresso-scroll-barra {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--vermelho-vivo);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}

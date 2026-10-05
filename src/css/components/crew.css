@@ -1,0 +1,111 @@
+/* ---------- creators (carrossel manual ‹ ›) ---------- */
+.crew {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.8rem);
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: grab;
+}
+.crew:active {
+  cursor: grabbing;
+}
+.crew-btn {
+  background: none;
+  border: none;
+  color: rgba(241, 233, 220, 0.85);
+  cursor: pointer;
+  padding: 0.4rem;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+  flex: 0 0 auto;
+}
+.crew-btn:hover {
+  color: var(--vermelho-vivo);
+  transform: scale(1.06);
+}
+.crew-btn svg {
+  width: 30px;
+  height: 30px;
+}
+
+.crew-row {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.6rem 0;
+}
+.crew-row::-webkit-scrollbar {
+  display: none;
+}
+
+.crew-item {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  flex: 0 0 calc((100% - 2 * clamp(1.5rem, 3vw, 2.5rem)) / 3);
+}
+
+.avatar {
+  width: clamp(64px, 6.5vw, 96px);
+  height: clamp(64px, 6.5vw, 96px);
+  border-radius: 50%;
+  border: 1px dashed rgba(241, 233, 220, 0.4);
+  background: rgba(241, 233, 220, 0.05);
+  color: rgba(241, 233, 220, 0.55);
+  flex: 0 0 auto;
+}
+
+/* bloco de info: 3 linhas compactas, todas alinhadas à esquerda */
+.crew-info {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: 0.15rem;
+  text-align: left;
+}
+
+.crew-nome {
+  white-space: nowrap;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  letter-spacing: 0.12em;
+}
+
+/* número: General Sans Semibold */
+.chip-num {
+  margin: 0.55rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 1.4vw, 1.65rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--offwhite);
+}
+.chip-num::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--vermelho-vivo);
+  flex: 0 0 auto;
+}
+
+/* "INSCRITOS": menor e MUITO mais espaçado */
+.crew-label {
+  margin: 0.1rem 0 0;
+  padding-left: calc(9px + 0.55rem);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.5);
+}

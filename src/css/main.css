@@ -1,0 +1,45 @@
+@layer tokens, base, layout, pages, components, utilities;
+
+@import url("./tokens.css") layer(tokens);
+@import url("./base.css") layer(base);
+@import url("./layout.css") layer(layout);
+
+@import url("./components/btn.css") layer(components);
+@import url("./components/header.css") layer(components);
+@import url("./components/progresso.css") layer(components);
+@import url("./components/hero.css") layer(components);
+@import url("./components/numeros.css") layer(components);
+@import url("./components/marquee.css") layer(components);
+@import url("./components/crew.css") layer(components);
+@import url("./components/work-card.css") layer(components);
+@import url("./components/svc.css") layer(components);
+@import url("./components/sobre.css") layer(components);
+@import url("./components/form.css") layer(components);
+@import url("./components/footer.css") layer(components);
+@import url("./components/zap-float.css") layer(components);
+
+@import url("./pages/works.css") layer(pages);
+@import url("./pages/p404.css") layer(pages);
+@import url("./utilities.css") layer(utilities);
+@import url("./reducao-movimento.css");
+
+/* Sobrescreve o flag-icons (que está fora de camada) */
+.sobre-idiomas .fi {
+  display: inline-block;
+  width: 28px;
+  height: 18px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2px;
+  line-height: 0;
+  flex: 0 0 auto;
+  filter: saturate(0.7) brightness(0.97) contrast(0.95);
+  transition: filter 0.25s ease;
+}
+.sobre-idiomas .fi::before {
+  content: "";
+  line-height: 0;
+}
+.sobre-idiomas .fi:hover {
+  filter: saturate(1) brightness(1) contrast(1);
+}

@@ -1,0 +1,70 @@
+.numeros {
+  background: var(--verde);
+  color: var(--offwhite);
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+}
+
+.numeros-lista {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  text-align: center;
+}
+
+.numeros-lista li {
+  position: relative;
+  padding: 0 clamp(1rem, 3vw, 2.4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+}
+.numeros-lista li:first-child {
+  padding-left: 0;
+}
+.numeros-lista li:last-child {
+  padding-right: 0;
+}
+
+.numeros-lista li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 1px;
+  background: rgba(241, 233, 220, 0.28);
+}
+
+/* número: linha única, cor sólida creme */
+.num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5.2vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--offwhite);
+  white-space: nowrap;
+}
+
+/* legenda: risco curto + texto mono */
+.num-legenda {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.82);
+}
+.num-legenda::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  flex: 0 0 auto;
+}

@@ -1,0 +1,268 @@
+/* ---------- parceiros (preto) ---------- */
+.parceiros {
+  background: var(--preto);
+  color: var(--offwhite);
+  padding: clamp(4rem, 9vw, 6.5rem) 0;
+}
+
+/* ---------- cabeçalho comum (Marcas + Creators) ---------- */
+.parceiros-head {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  align-items: center;
+  margin-bottom: clamp(2rem, 5vw, 3.2rem);
+}
+.parceiros-head > div:first-child {
+  align-self: start;
+}
+
+.parceiros-titulo {
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7.4vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+/* coluna do meio: texto à ESQUERDA + régua à DIREITA, na mesma linha */
+.parceiros-head-meio {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-top: clamp(0.6rem, 1.4vw, 1.1rem);
+}
+.parceiros-head-meio p {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: rgba(241, 233, 220, 0.65);
+  white-space: nowrap;
+}
+.parceiros-head-meio .regua {
+  flex: 1 1 auto;
+  min-width: 40px;
+  height: 1px;
+  background: rgba(241, 233, 220, 0.22);
+}
+
+/* coluna da direita: parágrafo mono, alinhado à esquerda */
+.parceiros-head-nota {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.75;
+  color: rgba(241, 233, 220, 0.65);
+  text-align: left;
+  max-width: 30ch;
+}
+
+/* eyebrow vermelho */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vermelho-vivo);
+  margin: 0 0 0.4rem;
+}
+
+/* ---------- marquee infinito das marcas ---------- */
+.marquee {
+  width: 100%;
+  overflow: hidden;
+
+  /* borda esquerda/direita do container (mesma fórmula do .container) */
+  --edge: calc((100% - min(1120px, 92vw)) / 2);
+  --fade: clamp(24px, 4vw, 60px);
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(var(--edge) - var(--fade)),
+    #000 var(--edge),
+    #000 calc(100% - var(--edge)),
+    transparent calc(100% - var(--edge) + var(--fade)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(var(--edge) - var(--fade)),
+    #000 var(--edge),
+    #000 calc(100% - var(--edge)),
+    transparent calc(100% - var(--edge) + var(--fade)),
+    transparent 100%
+  );
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll var(--marquee-dur, 42s) linear infinite;
+  will-change: transform;
+  --marquee-shift: -50%;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--marquee-shift, -50%), 0, 0);
+  }
+}
+
+.marcas {
+  justify-content: flex-start;
+}
+.marcas li {
+  flex: 0 0 auto;
+  margin-right: clamp(3rem, 7vw, 6rem);
+  color: var(--offwhite);
+  white-space: nowrap;
+}
+
+/* logos em texto (placeholders oficiais depois) — escopados em .marcas
+   para NÃO vazar para o .brand do topo/rodapé */
+.marcas .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.marcas .brand svg {
+  width: clamp(22px, 2.4vw, 32px);
+  height: clamp(22px, 2.4vw, 32px);
+  flex: 0 0 auto;
+}
+.marcas .brand-krona {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.marcas .brand-samsung {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.marcas .brand-cist {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marcas .brand-ambev {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+.marcas .brand-solid {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+/* rodapé das marcas: nota + assinatura vermelha */
+.marcas-rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.nota {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.85;
+  color: rgba(241, 233, 220, 0.45);
+  padding-left: 2.5rem;
+  position: relative;
+}
+.nota::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.9em;
+  width: 1.8rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+.assinatura {
+  width: clamp(120px, 15vw, 190px);
+  height: auto;
+  color: var(--vermelho-vivo);
+  transform: rotate(-4deg) translateY(-0.4rem);
+  transform-origin: center;
+  flex: 0 0 auto;
+}
+
+/* ---------- espaço entre MARCAS e CREATORS ---------- */
+.parceiros-creators {
+  margin-top: var(--espaco-marcas-creators);
+}
+
+.marcas .brand {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.marcas:hover .brand {
+  opacity: 0.28;
+}
+.marcas .brand:hover {
+  opacity: 1;
+}
+
+@media (max-width: 780px) {
+  .parceiros-head {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .parceiros-head-meio {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding-top: clamp(0.6rem, 1.4vw, 1.1rem);
+  }
+  .parceiros-head-meio p {
+    white-space: normal;
+  }
+  .parceiros-head-nota {
+    max-width: none;
+  }
+
+  .marcas-rodape {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+  .assinatura {
+    transform: none;
+    align-self: flex-end;
+  }
+  .nota {
+    padding-left: 0;
+  }
+  .nota::before {
+    display: none;
+  }
+}

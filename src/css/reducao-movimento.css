@@ -1,0 +1,26 @@
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; translate: 0; }
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+    overflow-x: auto;
+  }
+  .marquee-track { animation: none; }
+
+  .p404-aviso,
+  .p404-numero,
+  .p404-acento,
+  .p404-creditos,
+  .p404-aside > *,
+  .p404-header,
+  .p404-footer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

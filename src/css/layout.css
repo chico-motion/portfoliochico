@@ -1,0 +1,16 @@
+.container {
+  width: min(1120px, 92vw);
+  margin-inline: auto;
+}
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(241, 233, 220, 0.92);
+  backdrop-filter: blur(8px);
+}
+.sobre .container,
+.contato .container,
+.rodape .container {
+  width: min(1350px, 92vw);
+}

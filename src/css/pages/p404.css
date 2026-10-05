@@ -1,0 +1,383 @@
+/* ============================================================
+   PÁGINA 404
+   ============================================================ */
+
+body.p404 {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(1.5rem, 3vw, 2.6rem) clamp(1.5rem, 4vw, 3.5rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  overflow-x: hidden;
+}
+
+/* ---------- header ---------- */
+.p404-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+.p404-header-l {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.p404-logo img {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+.p404-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 21, 18, 0.85);
+}
+.p404-header-r {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding-top: 0.5rem;
+}
+.p404-header-txt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--preto);
+}
+
+/* traço horizontal curto */
+.p404-traco {
+  display: block;
+  width: clamp(40px, 5vw, 72px);
+  height: 1px;
+  background: currentColor;
+  flex: 0 0 auto;
+  opacity: 0.8;
+}
+
+/* ---------- corpo ---------- */
+.p404-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ← centraliza verticalmente */
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  min-height: 0;
+}
+
+.p404-aviso {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--preto);
+  padding-left: clamp(1rem, 10vw, 8rem);
+}
+
+.p404-palco {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 22vw);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+  min-width: 0;
+}
+
+/* ---------- obra (número + acentos + créditos) ---------- */
+.p404-obra-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  min-width: 0;
+}
+
+.p404-obra {
+  position: relative;
+  width: 100%;
+  max-width: 900px; /* ← era 1100 */
+  margin-inline: auto; /* ← centraliza no container */
+}
+
+.p404-numero {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* acentos geométricos — "+" */
+.p404-acento {
+  position: absolute;
+  width: clamp(18px, 2.2vw, 28px);
+  height: clamp(18px, 2.2vw, 28px);
+  pointer-events: none;
+  color: var(--verde);
+}
+.p404-acento::before,
+.p404-acento::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.p404-acento::before {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.p404-acento::after {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform: translateY(-50%);
+}
+.p404-acento--1 {
+  left: 2%;
+  top: 8%;
+} /* acima do primeiro 4 */
+.p404-acento--2 {
+  left: 48%;
+  bottom: 2%;
+} /* abaixo do 0 */
+.p404-acento--3 {
+  right: 2%;
+  top: 35%;
+} /* à direita do segundo 4 */
+
+/* créditos pequenos abaixo do número */
+.p404-creditos {
+  display: grid;
+  gap: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 21, 18, 0.75);
+  padding-left: clamp(1rem, 10vw, 8rem);
+}
+
+/* ---------- coluna direita ---------- */
+.p404-aside {
+  display: grid;
+  gap: 1.6rem;
+  min-width: 0;
+  padding-top: clamp(2rem, 5vw, 3.5rem);
+}
+
+.p404-aside-lead,
+.p404-aside-sec {
+  margin: 0;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  line-height: 1.7;
+  color: var(--preto);
+}
+.p404-aside-lead {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.p404-aside-sec {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: rgba(26, 21, 18, 0.78);
+}
+
+.p404-aside-traco {
+  display: block;
+  width: clamp(48px, 5vw, 72px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  margin: 0.4rem 0;
+}
+
+/* link — mesmo padrão do "enviar mensagem" */
+.p404-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--preto);
+  text-decoration: none;
+  transition:
+    color 0.2s,
+    gap 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.p404-link svg {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.p404-link:hover {
+  color: var(--vermelho-vivo);
+  gap: 1.15rem;
+}
+.p404-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* ---------- footer ---------- */
+.p404-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26, 21, 18, 0.75);
+}
+.p404-footer-l {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.p404-footer-r {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  text-align: left;
+  line-height: 1.6;
+}
+.p404-footer-v {
+  display: block;
+  width: 1px;
+  height: 34px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+/* ============================================================
+   ANIMAÇÕES DA 404
+   ============================================================ */
+
+.p404-aviso {
+  animation: p404-up 0.7s ease both;
+  animation-delay: 0.1s;
+}
+
+.p404-numero {
+  animation: p404-fade-in 1s ease both;
+  animation-delay: 0.25s;
+}
+
+.p404-acento {
+  animation: p404-fade-in 0.5s ease both;
+}
+.p404-acento--1 {
+  animation-delay: 0.9s;
+}
+.p404-acento--2 {
+  animation-delay: 1.05s;
+}
+.p404-acento--3 {
+  animation-delay: 1.2s;
+}
+
+.p404-creditos {
+  animation: p404-up 0.7s ease both;
+  animation-delay: 1.35s;
+}
+
+.p404-aside > * {
+  animation: p404-up 0.7s ease both;
+}
+.p404-aside-lead {
+  animation-delay: 0.5s;
+}
+.p404-aside-sec {
+  animation-delay: 0.7s;
+}
+.p404-aside-traco {
+  animation-delay: 0.85s;
+}
+.p404-link {
+  animation-delay: 1s;
+}
+
+.p404-header {
+  animation: p404-up 0.6s ease both;
+  animation-delay: 0s;
+}
+.p404-footer {
+  animation: p404-up 0.6s ease both;
+  animation-delay: 1.5s;
+}
+
+@keyframes p404-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes p404-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width: 860px) {
+  .p404-palco {
+    grid-template-columns: 1fr;
+  }
+  .p404-aside {
+    padding-top: clamp(1rem, 4vw, 2rem);
+    gap: 1.2rem;
+  }
+  .p404-aviso {
+    padding-left: 0;
+  }
+  .p404-creditos {
+    padding-left: 0;
+  }
+
+  .p404-header-r .p404-header-txt {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+}
+
+@media (max-width: 560px) {
+  .p404-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .p404-header-r {
+    padding-top: 0;
+  }
+  .p404-acento--3 {
+    display: none;
+  }
+  .p404-acento--2 {
+    left: auto;
+    right: 32%;
+    bottom: auto;
+    top: 8%;
+  }
+  .p404-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+  .p404-footer-r {
+    align-items: flex-start;
+  }
+}
