@@ -1,4 +1,9 @@
-import { reduzMovimento } from "./utils.js";
+/* Carrossel de creators.
+   Snap via CSS. Loop infinito via clones.
+   - Setas: normalizam o scrollLeft com INSTANTÂNEO e depois animam
+   - Drag/touch: scroll livre + snap nativo
+   - scroll-behavior: smooth NÃO está no CSS — o JS decide quando
+     cada movimento é smooth ou instantâneo. */
 
 export function initCarousel() {
   const linha = document.getElementById("crew-row");
@@ -12,169 +17,183 @@ export function initCarousel() {
     return !el.dataset.clone;
   });
   const N = reais.length;
-  if (N < 1) return;
+  if (N < 2) return;
 
-  function fazerClone(el) {
-    const c = el.cloneNode(true);
-    c.dataset.clone = "1";
-    c.setAttribute("aria-hidden", "true");
-    return c;
+  function clonar() {
+    const frag = document.createDocumentFragment();
+    reais.forEach(function (el) {
+      const c = el.cloneNode(true);
+      c.dataset.clone = "1";
+      c.setAttribute("aria-hidden", "true");
+      frag.appendChild(c);
+    });
+    return frag;
   }
-  const fragA = document.createDocumentFragment();
-  reais.forEach(function (el) {
-    fragA.appendChild(fazerClone(el));
-  });
-  linha.insertBefore(fragA, linha.firstChild);
-  const fragD = document.createDocumentFragment();
-  reais.forEach(function (el) {
-    fragD.appendChild(fazerClone(el));
-  });
-  linha.appendChild(fragD);
+  linha.insertBefore(clonar(), linha.firstChild);
+  linha.appendChild(clonar());
 
-  function itens() {
+  /* ---------- helpers ---------- */
+  const itens = function () {
     return linha.querySelectorAll(".crew-item");
-  }
-  function larguraGrupo() {
-    const a = itens();
-    if (a.length < 2 * N) return 0;
-    return a[N].offsetLeft - a[0].offsetLeft;
-  }
-  function passoItem() {
+  };
+  const passoItem = function () {
     const a = itens();
     if (a.length < 2) return 0;
     return a[1].offsetLeft - a[0].offsetLeft;
+  };
+  const larguraGrupo = function () {
+    return passoItem() * N;
+  };
+
+  /* ---------- movimento ----------
+     setInstantaneo: ignora qualquer scroll-behavior do CSS
+     setSmooth: anima até o alvo */
+
+  function setInstantaneo(pos) {
+    linha.scrollTo({ left: pos, behavior: "instant" });
   }
 
-  function snap() {
-    const w = larguraGrupo();
-    const p = passoItem();
-    if (w <= 0 || p <= 0) return;
-
-    const s = linha.scrollLeft;
-    const k = Math.round((s - w) / p);
-    const alvo = w + k * p;
-    if (Math.abs(alvo - s) < 1) return;
-
-    travar(800);
-    if (reduzMovimento) linha.scrollLeft = alvo;
-    else linha.scrollTo({ left: alvo, behavior: "smooth" });
+  function setSmooth(pos) {
+    linha.scrollTo({ left: pos, behavior: "smooth" });
   }
 
-  const INTERVALO_CLIQUE = 250;
-  let ultimoClique = 0;
-  let travaAte = 0;
-  function travar(ms) {
-    travaAte = Math.max(travaAte, performance.now() + ms);
-  }
-
+  /* ---------- inicial ---------- */
+  let alinhado = false;
   function alinhar() {
     const w = larguraGrupo();
-    if (w <= 0) return;
-    linha.scrollTo({ left: w, behavior: "auto" });
-    travar(200);
+    if (w > 0) {
+      setInstantaneo(w);
+      alinhado = true;
+    }
   }
 
-  function loop() {
+  /* ---------- loop infinito ----------
+     Depois de um scroll PARADO (drag, touch ou smooth terminando),
+     se o scrollLeft está fora da zona segura, faz um jump instantâneo
+     pra trazer de volta. Isso mantém o loop infinito funcionando em
+     qualquer interação. */
+
+  let programado = false;   /* true entre o clique e o fim do smooth */
+  let tSmooth;
+
+  function marcarProgramado() {
+    programado = true;
+    clearTimeout(tSmooth);
+    tSmooth = setTimeout(function () {
+      programado = false;
+    }, 500);
+  }
+
+  let tScroll;
+  linha.addEventListener(
+    "scroll",
+    function () {
+      if (!alinhado) return;
+      if (programado) return; /* durante animação de clique, ignora */
+
+      clearTimeout(tScroll);
+      tScroll = setTimeout(function () {
+        const w = larguraGrupo();
+        if (w <= 0) return;
+        const s = linha.scrollLeft;
+        if (s < w * 0.5) setInstantaneo(s + w);
+        else if (s > w * 1.5) setInstantaneo(s - w);
+      }, 120);
+    },
+    { passive: true }
+  );
+
+  /* ---------- setas ---------- */
+  const INTERVALO = 200;
+  let ultimoClique = 0;
+
+  function passo(dir) {
+    const p = passoItem();
     const w = larguraGrupo();
-    if (w > 0 && performance.now() > travaAte) {
-      const s = linha.scrollLeft;
-      if (s < w * 0.5) linha.scrollLeft = s + w;
-      else if (s > w * 1.5) linha.scrollLeft = s - w;
+    if (p <= 0 || w <= 0) return;
+
+    marcarProgramado();
+
+    /* 1) LÊ o scrollLeft atual */
+    let s = linha.scrollLeft;
+
+    /* 2) NORMALIZA INSTANTANEAMENTE se estiver fora da zona segura.
+       Isso é o coração do fix: garantimos que o smooth a seguir
+       nunca comece de uma posição "extrema". */
+    let ajustou = false;
+    if (s < w * 0.5) {
+      s += w;
+      ajustou = true;
+    } else if (s > w * 1.5) {
+      s -= w;
+      ajustou = true;
     }
-    requestAnimationFrame(loop);
+    if (ajustou) {
+      setInstantaneo(s);
+    }
+
+    /* 3) AGORA aplica o passo com smooth. */
+    const alvo = s + dir * p;
+    setSmooth(alvo);
   }
 
   document.querySelectorAll(".crew-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const agora = performance.now();
-      if (agora - ultimoClique < INTERVALO_CLIQUE) return;
+      if (agora - ultimoClique < INTERVALO) return;
       ultimoClique = agora;
-
-      const p = passoItem();
-      const w = larguraGrupo();
-      if (p <= 0 || w <= 0) return;
       const dir = Number(btn.dataset.dir) || 0;
       if (!dir) return;
-
-      travar(800);
-      let alvo = linha.scrollLeft + dir * p;
-
-      if (alvo < w * 0.5) {
-        linha.scrollLeft += w;
-        alvo += w;
-      } else if (alvo > w * 1.5) {
-        linha.scrollLeft -= w;
-        alvo -= w;
-      }
-
-      if (reduzMovimento) linha.scrollLeft = alvo;
-      else linha.scrollTo({ left: alvo, behavior: "smooth" });
+      passo(dir);
     });
   });
 
-  let arrastando = false,
-    inicioX = 0,
-    inicioScroll = 0;
+  /* ---------- drag com mouse ---------- */
+  let arrastando = false;
+  let inicioX = 0;
+  let inicioScroll = 0;
 
   linha.addEventListener("pointerdown", function (e) {
     if (e.pointerType !== "mouse") return;
     if (e.button !== 0) return;
     if (e.target.closest("a, button")) return;
+
     arrastando = true;
     inicioX = e.clientX;
     inicioScroll = linha.scrollLeft;
     linha.style.cursor = "grabbing";
-    travar(150);
   });
-
-  linha.addEventListener(
-    "touchend",
-    function () {
-      setTimeout(snap, 80);
-    },
-    { passive: true }
-  );
 
   window.addEventListener("pointermove", function (e) {
     if (!arrastando) return;
-    let novo = inicioScroll - (e.clientX - inicioX);
-
-    const w = larguraGrupo();
-    if (w > 0) {
-      if (novo < w * 0.5) novo += w;
-      else if (novo > w * 1.5) novo -= w;
-    }
-    linha.scrollLeft = novo;
-    inicioScroll = novo;
-    inicioX = e.clientX;
-    travar(150);
+    const delta = e.clientX - inicioX;
+    linha.scrollLeft = inicioScroll - delta;
   });
 
   function soltar() {
     if (!arrastando) return;
     arrastando = false;
     linha.style.cursor = "";
-    travar(200);
-    requestAnimationFrame(snap);
+    /* o snap do CSS alinha no item mais próximo;
+       o listener de scroll normaliza depois */
   }
   window.addEventListener("pointerup", soltar);
   window.addEventListener("pointercancel", soltar);
 
-  let tR;
+  /* ---------- resize ---------- */
+  let tResize;
   window.addEventListener("resize", function () {
-    clearTimeout(tR);
-    tR = setTimeout(alinhar, 150);
+    clearTimeout(tResize);
+    tResize = setTimeout(alinhar, 160);
   });
 
+  /* ---------- inicial ---------- */
   requestAnimationFrame(function () {
-    requestAnimationFrame(function () {
-      alinhar();
-      loop();
-    });
+    requestAnimationFrame(alinhar);
   });
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
-      setTimeout(alinhar, 50);
+      setTimeout(alinhar, 60);
     });
   }
 }

@@ -16,10 +16,13 @@
 @import url("./components/sobre.css") layer(components);
 @import url("./components/form.css") layer(components);
 @import url("./components/footer.css") layer(components);
+@import url("./components/overlay.css") layer(components);
 @import url("./components/zap-float.css") layer(components);
 
 @import url("./pages/works.css") layer(pages);
+@import url("./pages/projeto.css") layer(pages);
 @import url("./pages/p404.css") layer(pages);
+
 @import url("./utilities.css") layer(utilities);
 @import url("./reducao-movimento.css");
 

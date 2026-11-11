@@ -1,0 +1,586 @@
+/* ============================================================
+   PÁGINA DE PROJETO
+   Usado em: /works/[id].html (standalone) e dentro da overlay
+   ============================================================ */
+
+body.pagina-projeto {
+  background: var(--preto);
+  color: var(--offwhite);
+}
+
+.proj {
+  background: var(--preto);
+  color: var(--offwhite);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ---------- TOPBAR ---------- */
+.proj-topo {
+  width: min(1500px, 92vw);
+  margin-inline: auto;
+  padding: clamp(1.2rem, 2.2vw, 2rem) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.85);
+}
+
+.proj-topo-l {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.proj-logo {
+  display: inline-flex;
+  align-items: center;
+  color: var(--offwhite);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.proj-logo:hover { opacity: 0.75; }
+.proj-logo img {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.proj-cat {
+  color: rgba(241, 233, 220, 0.75);
+}
+
+.proj-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.85);
+  text-decoration: none;
+  transition: color 0.2s, gap 0.25s;
+}
+.proj-voltar:hover {
+  color: var(--offwhite);
+  gap: 1rem;
+}
+
+/* ---------- HERO ---------- */
+.proj-hero {
+  padding: clamp(2rem, 5vw, 4rem) 0 clamp(4rem, 9vw, 7rem);
+}
+
+.proj-hero-grid {
+  width: min(1500px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.proj-hero-info {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  align-content: center;
+}
+
+.proj-numero {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.85);
+  margin: 0;
+}
+.proj-numero::after {
+  content: "";
+  flex: 0 0 clamp(80px, 10vw, 140px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.proj-titulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 7.5vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.proj-titulo span { display: block; }
+
+.proj-disciplinas {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.7);
+  margin: 0;
+}
+
+.proj-desc-curta {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(241, 233, 220, 0.85);
+  max-width: 38ch;
+  margin: 0;
+} 
+
+.proj-hero-midia { display: block; }
+
+.proj-midia,
+.proj-galeria-grande,
+.proj-galeria-item {
+  position: relative;
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2a2520 0%, #1a1512 100%);
+  display: grid;
+  place-items: center;
+  color: rgba(241, 233, 220, 0.35);
+}
+
+.proj-midia {
+  aspect-ratio: 16 / 10;
+  position: relative;
+  width: 100%;
+}
+
+.proj-ph-nome {
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.proj-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(241, 233, 220, 0.92);
+  color: var(--preto);
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  z-index: 2;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.25s;
+}
+.proj-play:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: var(--offwhite);
+}
+.proj-play svg {
+  display: block;
+  margin-left: 2px;
+}
+
+/* ---------- INFO ---------- */
+.proj-info {
+  background: var(--offwhite);
+  color: var(--preto);
+  padding: clamp(4rem, 9vw, 7rem) 0;
+}
+
+.proj-info-grid {
+  width: min(1500px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.proj-info-texto-col { max-width: 60ch; }
+
+.proj-info-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(19, 15, 13, 0.85);
+  margin: 0 0 clamp(1.4rem, 3vw, 2rem);
+}
+.proj-info-eyebrow::after {
+  content: "";
+  flex: 0 0 clamp(60px, 8vw, 120px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.proj-info-texto {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.1vw, 1.1rem);
+  line-height: 1.65;
+  color: rgba(19, 15, 13, 0.9);
+  margin: 0 0 1.2rem;
+}
+.proj-info-texto:last-child { margin-bottom: 0; }
+
+.proj-meta {
+  display: grid;
+  gap: clamp(1.2rem, 2.5vw, 1.8rem);
+  padding-left: clamp(1rem, 2.4vw, 2.4rem);
+  border-left: 1px solid rgba(19, 15, 13, 0.15);
+}
+
+.proj-meta-bloco {
+  display: grid;
+  gap: 0.3rem;
+}
+.proj-meta-rotulo {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(19, 15, 13, 0.55);
+}
+.proj-meta-valor {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--preto);
+}
+
+/* ---------- GALERIA ---------- */
+.proj-galeria {
+  padding: clamp(4rem, 8vw, 6rem) 0;
+}
+
+.proj-galeria-head {
+  width: min(1500px, 92vw);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.85);
+}
+
+.proj-galeria-num {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.proj-galeria-num::after {
+  content: "";
+  flex: 0 0 clamp(80px, 10vw, 140px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.proj-galeria-tag { color: rgba(241, 233, 220, 0.75); }
+
+.proj-galeria-grid {
+  width: min(1500px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.6rem, 1.2vw, 1.2rem);
+}
+
+.proj-galeria-grande {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+}
+/* Container que divide o card grande em 2 */
+.proj-galeria-grande-dupla {
+  grid-column: 1 / -1; /* Ocupa todas as 3 colunas do grid principal */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Divide em 2 colunas iguais */
+  gap: clamp(0.6rem, 1.2vw, 1.2rem); /* O MESMO gap da grid principal, para alinhar com os cards de baixo */
+}
+
+.proj-galeria-item { aspect-ratio: 16 / 9; }
+.proj-galeria-item--vertical { 
+  aspect-ratio: 9 / 16; 
+}
+.proj-galeria-item .proj-ph-nome { font-size: 0.62rem; }
+
+/* ---------- RODAPÉ ---------- */
+.proj-rodape {
+  margin-top: auto;
+  padding: clamp(2rem, 4vw, 3rem) 0 clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid rgba(241, 233, 220, 0.15);
+}
+
+.proj-rodape-grid {
+  width: min(1500px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.proj-nav-esq {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.6rem, 2.6vw, 2.2rem);
+  align-items: flex-start;
+}
+
+.proj-proximo {
+  display: grid;
+  gap: 0.3rem;
+  text-decoration: none;
+  color: inherit;
+  text-align: right;
+}
+.proj-proximo-rotulo {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.55);
+}
+.proj-proximo-nome {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-end;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--offwhite);
+  transition: color 0.2s;
+}
+.proj-proximo:hover .proj-proximo-nome {
+  color: var(--mostarda);
+}
+.proj-proximo-nome svg {
+  flex: 0 0 auto;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.proj-proximo:hover .proj-proximo-nome svg {
+  transform: translateX(6px);
+}
+.proj-proximo-meta {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(241, 233, 220, 0.55);
+}
+
+.proj-anterior {
+  text-align: left;
+}
+.proj-anterior .proj-proximo-nome {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.proj-anterior .proj-proximo-nome svg {
+  transform: rotate(180deg);
+}
+.proj-anterior:hover .proj-proximo-nome svg {
+  transform: rotate(180deg) translateX(6px);
+}
+/* Botão de play ligeiramente menor na galeria */
+.proj-galeria-item .proj-play {
+  width: 50px;
+  height: 50px;
+  transition: opacity 0.3s ease, transform 0.25s ease;
+}
+
+.proj-galeria-item .proj-play svg {
+  width: 18px;
+  height: 18px;
+}
+/* Deixa claro que a mídia é clicável */
+.proj-midia,
+.proj-galeria-item {
+  cursor: pointer;
+}
+
+/* Remove o cursor pointer da barra de controles nativa do vídeo (para não confundir) */
+.proj-midia video[controls],
+.proj-galeria-item video[controls] {
+  cursor: default;
+}
+
+/* Garante que o botão de play tenha uma transição suave ao sumir */
+.proj-play {
+  transition: opacity 0.3s ease, transform 0.25s ease, pointer-events 0s linear 0.3s;
+}
+
+/* ============================================================
+   ESCONDE SCROLLBAR NA PÁGINA STANDALONE DO PROJETO
+   ============================================================ */
+html:has(body.pagina-projeto),
+body.pagina-projeto {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html:has(body.pagina-projeto)::-webkit-scrollbar,
+body.pagina-projeto::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+
+/* ============================================================
+   ESPAÇAMENTOS EXTRAS DA GALERIA (GAP E SEÇÕES)
+   ============================================================ */
+
+/* O "espaçador" ocupa as 3 colunas inteiras e empurra o conteúdo pra baixo */
+.proj-galeria-gap {
+  grid-column: 1 / -1;
+  height: clamp(2rem, 5vw, 4rem);
+}
+
+/* Dá um respiro entre a Section 01 e a Section 02 */
+.proj-galeria + .proj-galeria {
+  padding-top: 0; /* Remove o padding padrão de cima */
+  margin-top: clamp(2rem, 4vw, 3rem); /* Cria a distância entre as seções */
+}
+
+/* Opcional: Se quiser uma linha sutil separando as seções */
+.proj-galeria + .proj-galeria .proj-galeria-head {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgba(241, 233, 220, 0.1);
+}
+/* ============================================================
+   VARIANTE DE GALERIA: 2 COLUNAS (Apenas Desktop e Tablet)
+   ============================================================ */
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 860px) {
+  .proj-hero-grid,
+  .proj-info-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 6vw, 3rem);
+  }
+
+  .proj-meta {
+    padding-left: 0;
+    padding-top: clamp(1.6rem, 4vw, 2.4rem);
+    border-left: 0;
+    border-top: 1px solid rgba(19, 15, 13, 0.15);
+  }
+
+  .proj-galeria-grid { grid-template-columns: 1fr; }
+  .proj-galeria-item { aspect-ratio: 16 / 10; }
+  .proj-galeria-grande-dupla {
+    grid-template-columns: 1fr; /* Vira 1 coluna no mobile */
+  }
+  /* ---------- RODAPÉ MOBILE/TABLET ---------- */
+  .proj-rodape-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .proj-nav-esq {
+    display: contents;
+  }
+
+  /* Esconde o voltar do rodapé, os nomes e os subtítulos */
+  .proj-rodape .proj-voltar,
+  .proj-proximo-nome,
+  .proj-proximo-meta {
+    display: none !important;
+  }
+
+  .proj-proximo {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .proj-proximo-rotulo {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: rgba(241, 233, 220, 0.85);
+  }
+
+  /* Alinha Anterior na esquerda, Próximo na direita */
+  .proj-anterior {
+    grid-column: 1;
+    justify-self: start;
+  }
+  
+  .proj-proximo:not(.proj-anterior) {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  /* Cria as setinhas via CSS para não depender do SVG escondido */
+  .proj-anterior .proj-proximo-rotulo::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f1e9dc' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5M11 6l-6 6 6 6'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 0.6rem;
+    vertical-align: middle;
+    transform: translateY(-1px);
+  }
+
+  .proj-proximo:not(.proj-anterior) .proj-proximo-rotulo::after {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f1e9dc' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    transform: translateY(-1px);
+  }
+}
+@media (min-width: 768px) {
+  .proj-galeria-grid--dupla {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proj-play,
+  .proj-voltar,
+  .proj-proximo-nome,
+  .proj-proximo-nome svg {
+    transition: none;
+  }
+}

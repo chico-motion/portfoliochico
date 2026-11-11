@@ -10,9 +10,11 @@
   --preto-2: #262019;
   --vermelho-escuro: #5e1720;
   --verde-claro: #4a5a33;
+  --verde-claro: #4a5a33;
+  --verde-svc: #a8c47a;
   --font-display: "Chronicle Display", Georgia, "Times New Roman", serif;
   --font-body: "General Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --header-h: 90px;
-  --espaco-marcas-creators: clamp(6rem, 14vw, 11rem);
+  --espaco-marcas-creators: clamp(4rem, 10vw, 7rem);
 }

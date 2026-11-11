@@ -1,4 +1,9 @@
-/* ---------- parceiros (preto) ---------- */
+/* ============================================================
+   MARCAS E CREATORS
+   Head sempre em 3 colunas (título · meio · nota).
+   A nota da direita some quando não cabe (≤ 860px).
+   ============================================================ */
+
 .parceiros {
   background: var(--preto);
   color: var(--offwhite);
@@ -8,8 +13,8 @@
 /* ---------- cabeçalho comum (Marcas + Creators) ---------- */
 .parceiros-head {
   display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
-  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  grid-template-columns: auto 1fr auto;
+  gap: clamp(1.2rem, 2.5vw, 3rem);
   align-items: center;
   margin-bottom: clamp(2rem, 5vw, 3.2rem);
 }
@@ -18,27 +23,27 @@
 }
 
 .parceiros-titulo {
-  margin-top: 0.6rem;
+  margin-top: 0.5rem;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.8rem, 7.4vw, 5rem);
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
   line-height: 0.94;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
-/* coluna do meio: texto à ESQUERDA + régua à DIREITA, na mesma linha */
+/* coluna do meio: texto à ESQUERDA + régua à DIREITA */
 .parceiros-head-meio {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
-  padding-top: clamp(0.6rem, 1.4vw, 1.1rem);
+  gap: 1.2rem;
+  padding-top: 0.4rem;
 }
 .parceiros-head-meio p {
   order: -1;
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1.55;
@@ -47,22 +52,22 @@
 }
 .parceiros-head-meio .regua {
   flex: 1 1 auto;
-  min-width: 40px;
+  min-width: 30px;
   height: 1px;
   background: rgba(241, 233, 220, 0.22);
 }
 
-/* coluna da direita: parágrafo mono, alinhado à esquerda */
+/* coluna da direita: parágrafo mono */
 .parceiros-head-nota {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1.75;
   color: rgba(241, 233, 220, 0.65);
   text-align: left;
-  max-width: 30ch;
+  max-width: 28ch;
 }
 
 /* eyebrow vermelho */
@@ -79,9 +84,7 @@
 .marquee {
   width: 100%;
   overflow: hidden;
-
-  /* borda esquerda/direita do container (mesma fórmula do .container) */
-  --edge: calc((100% - min(1120px, 92vw)) / 2);
+  --edge: calc((100% - min(1120px, 88vw)) / 2);
   --fade: clamp(24px, 4vw, 60px);
 
   -webkit-mask-image: linear-gradient(
@@ -112,16 +115,13 @@
   --marquee-shift: -50%;
 }
 @keyframes marquee-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(var(--marquee-shift, -50%), 0, 0);
-  }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(var(--marquee-shift, -50%), 0, 0); }
 }
 
 .marcas {
   justify-content: flex-start;
+  --logo-size: clamp(1.8rem, 3.4vw, 2.55rem);
 }
 .marcas li {
   flex: 0 0 auto;
@@ -130,12 +130,13 @@
   white-space: nowrap;
 }
 
-/* logos em texto (placeholders oficiais depois) — escopados em .marcas
-   para NÃO vazar para o .brand do topo/rodapé */
+/* logos em texto */
 .marcas .brand {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 .marcas .brand svg {
   width: clamp(22px, 2.4vw, 32px);
@@ -145,67 +146,53 @@
 .marcas .brand-krona {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+  font-size: var(--logo-size);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
 .marcas .brand-samsung {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  font-size: var(--logo-size);
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
+
 .marcas .brand-cist {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  font-size: var(--logo-size);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+
 .marcas .brand-ambev {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  font-size: var(--logo-size);
   letter-spacing: -0.02em;
   text-transform: lowercase;
 }
+
 .marcas .brand-solid {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  font-size: var(--logo-size);
   letter-spacing: 0.34em;
   text-transform: uppercase;
 }
 
-/* rodapé das marcas: nota + assinatura vermelha */
+.marcas:hover .brand { opacity: 0.28; }
+.marcas .brand:hover { opacity: 1; }
+
+/* rodapé das marcas: assinatura vermelha */
 .marcas-rodape {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 2rem;
   margin-top: clamp(2rem, 4vw, 3rem);
-}
-.nota {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  line-height: 1.85;
-  color: rgba(241, 233, 220, 0.45);
-  padding-left: 2.5rem;
-  position: relative;
-}
-.nota::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.9em;
-  width: 1.8rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.7;
 }
 .assinatura {
   width: clamp(120px, 15vw, 190px);
@@ -221,48 +208,50 @@
   margin-top: var(--espaco-marcas-creators);
 }
 
-.marcas .brand {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-.marcas:hover .brand {
-  opacity: 0.28;
-}
-.marcas .brand:hover {
-  opacity: 1;
-}
+/* ============================================================
+   RESPONSIVO
+   Mantém sempre o layout de 3 colunas (igual iPad Pro).
+   A coluna da direita (nota) some quando não couber.
+   ============================================================ */
 
-@media (max-width: 780px) {
+@media (max-width: 860px) {
   .parceiros-head {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-  .parceiros-head-meio {
-    display: flex;
-    align-items: center;
-    gap: 1.4rem;
-    padding-top: clamp(0.6rem, 1.4vw, 1.1rem);
-  }
-  .parceiros-head-meio p {
-    white-space: normal;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem 1.5rem;
   }
   .parceiros-head-nota {
-    max-width: none;
-  }
-
-  .marcas-rodape {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.2rem;
-  }
-  .assinatura {
-    transform: none;
-    align-self: flex-end;
-  }
-  .nota {
-    padding-left: 0;
-  }
-  .nota::before {
     display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .parceiros-titulo {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+  .parceiros-head-meio {
+    padding-top: 0.3rem;
+    gap: 0.8rem;
+  }
+  .parceiros-head-meio p {
+    font-size: 0.62rem;
+    white-space: normal;
+  }
+  .parceiros-head-meio .regua {
+    min-width: 20px;
+  }
+  .eyebrow {
+    font-size: 0.62rem;
+  }
+}
+/* ============================================================
+   Assinatura vermelha: escondida nos 3 mobiles
+   (430 · 390 · 360). Fica visível em iPad Mini (768) pra cima.
+   ============================================================ */
+@media (max-width: 699px) {
+  .assinatura {
+    display: none;
+  }
+  .marcas-rodape {
+    margin-top: 0;
   }
 }

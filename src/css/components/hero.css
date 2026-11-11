@@ -31,7 +31,6 @@
   }
 }
 
-/* palco */
 .hero-stage {
   position: relative;
   z-index: 1;
@@ -39,7 +38,6 @@
   min-height: calc(100vh - var(--header-h));
 }
 
-/* textos de canto */
 .hero-canto {
   position: absolute;
   font-family: var(--font-mono);
@@ -76,7 +74,6 @@
   margin: 1rem 0;
 }
 
-/* centro: foto + título + sub */
 .hero-centro {
   position: absolute;
   inset: 0;
@@ -87,7 +84,7 @@
 .photo-hero {
   position: absolute;
   left: 50%;
-  top: 14%;
+  top: 6%;
   transform: translateX(-50%);
   width: min(23vw, 390px);
   aspect-ratio: 4/5;
@@ -99,7 +96,6 @@
   pointer-events: auto;
 }
 
-/* TÍTULO: ocupa todo o hero, empilhado e centralizado */
 .hero-titulo {
   position: absolute;
   inset: 0;
@@ -112,7 +108,7 @@
   text-align: center;
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1;
+  line-height: 0.82;
   letter-spacing: -0.025em;
   text-transform: uppercase;
   color: var(--preto);
@@ -125,7 +121,6 @@
   position: relative;
 }
 
-/* CHICO e MARTINS: MESMO tamanho de fonte */
 .hero-titulo .linha-1 {
   font-size: clamp(3rem, 8.5vw, 10.5rem);
   left: -16%;
@@ -136,7 +131,6 @@
   margin-top: 0;
 }
 
-/* régua entre CHICO e MARTINS */
 .hero-titulo .linha-regua {
   display: block;
   flex: 0 0 auto;
@@ -166,7 +160,6 @@
   z-index: 3;
 }
 
-/* rodapé */
 .hero-rodape {
   position: absolute;
   left: 4%;
@@ -226,9 +219,7 @@
   margin: 0;
 }
 
-/* ---------- hero — micro-interações ---------- */
-
-/* TÍTULOS — tracking + fade direcional */
+/* ---------- micro-interações ---------- */
 
 .hero-titulo .linha-1,
 .hero-titulo .linha-2 {
@@ -240,38 +231,28 @@
     letter-spacing 1.3s cubic-bezier(0.2, 0.8, 0.2, 1),
     transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.hero-titulo .linha-1 {
-  transition-delay: 100ms;
-}
-.hero-titulo .linha-2 {
-  transition-delay: 350ms;
-}
+.hero-titulo .linha-1 { transition-delay: 100ms; }
+.hero-titulo .linha-2 { transition-delay: 350ms; }
 
-/* CHICO: começa aberto (tracking grande) e deslocado à esquerda */
 html.no-intro .hero-titulo .linha-1 {
   opacity: 0;
   letter-spacing: 0.35em;
   transform: translateX(-60px);
 }
-/* MARTINS: começa aberto e deslocado à direita */
 html.no-intro .hero-titulo .linha-2 {
   opacity: 0;
   letter-spacing: 0.35em;
   transform: translateX(60px);
 }
 
-/* RÉGUA — cresce da esquerda pra direita (mantém) */
 .hero-titulo .linha-regua {
   transform-origin: left center;
   transition: width 1.1s cubic-bezier(0.65, 0, 0.35, 1);
   transition-delay: 1100ms;
   width: var(--regua-w, min(80vw, 1380px));
 }
-html.no-intro .hero-titulo .linha-regua {
-  width: 0;
-}
+html.no-intro .hero-titulo .linha-regua { width: 0; }
 
-/* FOTO — descortina de baixo pra cima (mantém) */
 .photo-hero {
   transition:
     clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1),
@@ -282,18 +263,14 @@ html.no-intro .photo-hero {
   opacity: 0;
 }
 
-/* CÍRCULO DECORATIVO — se completando com dashoffset */
 .deco-circle circle {
   stroke-dasharray: 622;
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 2.2s cubic-bezier(0.65, 0, 0.35, 1);
   transition-delay: 400ms;
 }
-html.no-intro .deco-circle circle {
-  stroke-dashoffset: 622;
-}
+html.no-intro .deco-circle circle { stroke-dashoffset: 622; }
 
-/* SUBTÍTULO */
 .hero-sub {
   transition:
     opacity 0.7s ease,
@@ -305,19 +282,14 @@ html.no-intro .hero-sub {
   transform: translateY(12px);
 }
 
-/* TEXTOS DE CANTO */
 .hero-canto-esq,
 .hero-canto-dir {
   transition:
     opacity 0.7s ease,
     transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.hero-canto-esq {
-  transition-delay: 1700ms;
-}
-.hero-canto-dir {
-  transition-delay: 1850ms;
-}
+.hero-canto-esq { transition-delay: 1700ms; }
+.hero-canto-dir { transition-delay: 1850ms; }
 html.no-intro .hero-canto-esq {
   opacity: 0;
   transform: translateY(12px);
@@ -327,24 +299,18 @@ html.no-intro .hero-canto-dir {
   transform: translateY(12px);
 }
 
-/* RODAPÉ DO HERO */
 .hero-rodape > * {
   transition:
     opacity 0.7s ease,
     transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.hero-rodape .hero-pagina {
-  transition-delay: 2000ms;
-}
-.hero-rodape .hero-local {
-  transition-delay: 2150ms;
-}
+.hero-rodape .hero-pagina { transition-delay: 2000ms; }
+.hero-rodape .hero-local { transition-delay: 2150ms; }
 html.no-intro .hero-rodape > * {
   opacity: 0;
   transform: translateY(10px);
 }
 
-/* SCROLL — entra subindo + seta se desenha */
 .hero-scroll {
   transition:
     opacity 0.7s ease,
@@ -362,57 +328,215 @@ html.no-intro .hero-scroll {
   transition: stroke-dashoffset 1.2s cubic-bezier(0.65, 0, 0.35, 1);
   transition-delay: 2600ms;
 }
-html.no-intro .hero-scroll svg path {
-  stroke-dashoffset: 32;
-}
-/* hover: pausa o bob e desce a seta com o texto */
+html.no-intro .hero-scroll svg path { stroke-dashoffset: 32; }
 .hero-scroll:hover {
   color: var(--vermelho-vivo);
   transform: translateY(4px);
 }
-.hero-scroll:hover svg {
-  transform: translateY(2px);
-}
+.hero-scroll:hover svg { transform: translateY(2px); }
 .hero-scroll svg {
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* ---------- responsivo ---------- */
+/* ============================================================
+   RESPONSIVO — 5 faixas, uma por device
+   Ordem: do MAIOR pro MENOR (o último vence quando empata).
+   ============================================================ */
 
-@media (max-width: 860px) {
-  .hero-canto-esq,
-  .hero-canto-dir {
-    display: none;
+/* ============================================================
+   5) iPad Pro retrato — 1024 × 1366
+   ============================================================ */
+@media (min-width: 861px) and (max-width: 1100px) {
+  .deco-circle {
+    width: min(120vw, 600px);
+    height: min(120vw, 600px);
+    top: 44%;
   }
 
   .photo-hero {
-    width: min(70vw, 420px);
+    width: min(50vw, 370px);
+    top: 13.5%;
   }
 
-  /* zera o `left` que vem do desktop (senão soma com o transform e estoura) */
-  .hero-titulo .linha-1 {
-    left: 0;
-    font-size: clamp(3rem, 15vw, 6rem);
-    transform: translateX(-5%);
-  }
+  .hero-titulo .linha-1,
   .hero-titulo .linha-2 {
-    left: 0;
-    font-size: clamp(3.2rem, 15.5vw, 6.5rem);
-    transform: translateX(3%);
+    font-size: clamp(7rem, 12vw, 10.5rem);
   }
+  .hero-titulo .linha-1 { left: -15%; }
+  .hero-titulo .linha-2 { left: 2%; }
 
   .hero-sub {
-    left: 21%;
-    right: 8%;
-    max-width: none;
-    top: 62%;
-    bottom: 22%;
+    left: 26%;
+    top: 59%;
+    font-size: 1.9rem;
   }
+
+  .hero-canto-esq { left: 5%; top: 14%; }
+  .hero-canto-dir { right: 8%; top: 24%; }
+}
+
+/* ============================================================
+   4) iPad Mini (tablet retrato) — 768 × 1024
+   ============================================================ */
+@media (min-width: 700px) and (max-width: 860px) {
+  .hero-canto-esq,
+  .hero-canto-dir { display: none; }
+
+  .deco-circle {
+    width: min(100vw, 500px);
+    height: min(100vw, 500px);
+    top: 44%;
+  }
+
+  .photo-hero {
+    width: min(45vw, 320px);
+    top: 7%;
+  }
+
+  .hero-titulo .linha-1,
+  .hero-titulo .linha-2 {
+    font-size: clamp(6rem, 11vw, 9.5rem);
+  }
+  .hero-titulo .linha-1 { left: -19%; }
+  .hero-titulo .linha-2 { left: 2%; }
+
+  .hero-sub {
+    left: 25%;
+    top: 60%;
+    font-size: 1.4rem;
+  }
+
   .hero-rodape {
-    grid-template-columns: 1fr auto;
-    bottom: 2%;
+    grid-template-columns: 1fr;
+    bottom: 3%;
   }
-  .hero-scroll {
-    display: none;
+  .hero-scroll,
+  .hero-local { display: none; }
+}
+
+/* ============================================================
+   3) Mobile grande: iPhone 14 Pro Max — 430 × 932
+      (também pega iPhone Plus, 414, e similares)
+   ============================================================ */
+@media (min-width: 415px) and (max-width: 699px) {
+  .hero-canto-esq,
+  .hero-canto-dir { display: none; }
+
+  .deco-circle {
+    width: min(80vw, 360px);
+    height: min(80vw, 360px);
+    top: 44%;
   }
+
+  .photo-hero {
+    width: min(60vw, 330px);
+    top: 11.5%;
+  }
+
+  .hero-titulo .linha-1,
+  .hero-titulo .linha-2 {
+    font-size: clamp(3.5rem, 15vw, 5rem);
+  }
+  .hero-titulo .linha-1 { left: -19%; }
+  .hero-titulo .linha-2 { left: 2%; }
+
+  .hero-sub {
+    left: 17%;
+    top: 58%;
+    font-size: 1rem;
+  }
+
+  .hero-rodape {
+    grid-template-columns: 1fr;
+    bottom: 3%;
+  }
+  .hero-scroll,
+  .hero-local { display: none; }
+}
+
+/* ============================================================
+   2) Mobile médio: iPhone 12 Pro — 390 × 844
+      (também pega iPhone 11, 12, 13, 14, SE 2022, etc.)
+   ============================================================ */
+@media (min-width: 376px) and (max-width: 414px) {
+  .hero-canto-esq,
+  .hero-canto-dir { display: none; }
+
+  .deco-circle {
+    width: min(100vw, 325px);
+    height: min(100vw, 325px);
+    top: 44%;
+  }
+
+  .photo-hero {
+    width: min(54vw, 320px);
+    top: 15%;
+  }
+
+  .hero-titulo .linha-1,
+  .hero-titulo .linha-2 {
+    font-size: clamp(2.7rem, 14vw, 4.2rem);
+  }
+  .hero-titulo .linha-1 { left: -19%; }
+  .hero-titulo .linha-2 { left: 2%; }
+
+  .hero-sub {
+    left: 19%;
+    top: 58%;
+    font-size: 0.98rem;
+  }
+
+  .hero-rodape {
+    grid-template-columns: 1fr;
+    bottom: 3%;
+  }
+  .hero-scroll,
+  .hero-local { display: none; }
+}
+
+/* ============================================================
+   1) Mobile pequeno: Galaxy S8+ / Android pequeno — 360 × 740
+      (também pega iPhone SE 1ª gen, Galaxy A0x)
+   ============================================================ */
+@media (max-width: 375px) {
+  .hero-canto-esq,
+  .hero-canto-dir { display: none; }
+
+  .deco-circle {
+    width: min(70vw, 330px);
+    height: min(70vw, 330px);
+    top: 44%;
+  }
+
+  .photo-hero {
+    width: min(56vw, 340px);
+    top: 11%;
+  }
+
+  .hero-titulo .linha-1,
+  .hero-titulo .linha-2 {
+    font-size: clamp(2.7rem, 14vw, 3.9rem);
+  }
+  .hero-titulo .linha-1 { left: -19%; }
+  .hero-titulo .linha-2 { left: 2%; }
+
+  .hero-sub {
+    left: 19%;
+    top: 58%;
+    font-size: 0.85rem;
+  }
+
+  .hero-rodape {
+    grid-template-columns: 1fr;
+    bottom: 3%;
+  }
+  .hero-scroll,
+  .hero-local { display: none; }
+}
+
+/* ============================================================
+   TESTE: esconder a régua do hero
+   ============================================================ */
+.hero-titulo .linha-regua {
+  display: none !important;
 }

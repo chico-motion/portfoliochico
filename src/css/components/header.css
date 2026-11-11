@@ -105,52 +105,64 @@
   display: none;
 }
 
-/* ---------- responsivo ---------- */
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
 
-@media (min-width: 861px) {
+@media (min-width: 768px) {
   .menu-mobile {
     display: none;
   }
 }
 
-@media (max-width: 860px) {
+/* ============================================================
+   Tablet (768–900px): nav-list centralizado na tela,
+   botão "contratar" flutua em posição absoluta à direita
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 900px) {
   .nav {
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-  }
-  .nav-tag,
-  .nav-item,
-  .nav .btn-contratar {
-    display: none;
-  }
-  .nav-list {
-    justify-self: start;
-  }
-  .nav-toggle {
-    display: inline-flex;
-    justify-self: end;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 78px;
+    width: min(1680px, 96vw);
+    gap: 0;
   }
 
-  .menu-mobile {
-    display: grid;
-    gap: 0.2rem;
-    background: var(--offwhite);
-    padding: 1rem 4vw 1.6rem;
-    border-top: 1px solid rgba(26, 21, 18, 0.08);
-  }
-  .menu-mobile[hidden] {
+  .nav-tag {
     display: none;
   }
-  .menu-mobile a {
-    display: block;
-    padding: 0.7rem 0.2rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1px dashed rgba(26, 21, 18, 0.15);
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.2vw, 1.6rem);
+    /* agora centraliza na tela, porque o botão saiu do fluxo */
   }
-  .menu-mobile .btn {
-    margin-top: 1rem;
-    justify-self: start;
-    border-bottom: none;
+
+  .nav-logo .brand img {
+    width: 32px;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  /* botão: fora do fluxo, flutua à direita */
+  .nav .btn-contratar {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.88rem;
+    padding: 0.45rem 0.9rem;
+    white-space: nowrap;
+  }
+
+  .menu-mobile,
+  .nav-toggle {
+    display: none !important;
   }
 }

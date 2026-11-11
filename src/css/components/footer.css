@@ -1,13 +1,34 @@
+/* ============================================================
+   RODAPÉ
+   Desktop / iPad: logo + copyright juntos à esquerda, topo à direita
+   Mobile: logo + copyright centralizados, sem botão de topo
+   ============================================================ */
+
 .rodape {
   background: var(--preto);
   color: var(--offwhite);
   padding: clamp(0.9rem, 1.5vw, 1rem) 0;
 }
+
 .rodape-inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: end;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1.5vw, 1.2rem);
+
+  /* ⬇ controle do tamanho do copyright (desktop / iPad) */
+  --copy-size: 0.85rem;
+}
+
+/* ---------- logo ---------- */
+.brand-rodape {
+  color: var(--offwhite);
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.2s;
+  flex: 0 0 auto;
+}
+.brand-rodape:hover {
+  opacity: 0.85;
 }
 .brand-rodape img {
   width: clamp(40px, 4.5vw, 56px);
@@ -15,28 +36,21 @@
   aspect-ratio: 1;
   display: block;
 }
-.brand-rodape {
-  color: var(--offwhite);
-  display: inline-flex;
-  align-items: center;
-  transition: opacity 0.2s;
-}
-.brand-rodape:hover {
-  opacity: 0.85;
-}
 
+/* ---------- copyright ---------- */
 .rodape-copy {
   margin: 0;
-  justify-self: end;
-  padding-right: clamp(2rem, 6vw, 6rem);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--copy-size);
   color: rgba(241, 233, 220, 0.75);
   letter-spacing: 0.02em;
-  padding-bottom: 0.32rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
+/* ---------- voltar ao topo (empurrado pra direita) ---------- */
 .rodape-topo {
+  margin-left: auto;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -49,6 +63,7 @@
   transition:
     color 0.2s,
     transform 0.2s;
+  flex: 0 0 auto;
 }
 .rodape-topo:hover {
   color: var(--offwhite);
@@ -59,15 +74,22 @@
   height: 16px;
 }
 
+/* ============================================================
+   MOBILE: logo + copyright centralizados, sem botão de topo
+   ============================================================ */
 @media (max-width: 680px) {
   .rodape-inner {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-    gap: 1.8rem;
+    justify-content: center;   /* centraliza o grupo todo */
+    align-items: center;
+    gap: 0.6rem;
+    --copy-size: 0.62rem;      /* copyright menor pra caber em 1 linha */
   }
-  .rodape-copy {
-    justify-self: center;
-    padding-right: 0;
+
+  .brand-rodape img {
+    width: 28px;                /* logo menor */
+  }
+
+  .rodape-topo {
+    display: none;
   }
 }

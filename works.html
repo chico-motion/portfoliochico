@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chico Martins · Works</title>
     <link rel="canonical" href="https://chicomartins.com.br/works.html" />
-    <link rel="preload" href="/fonts/chronicle-display/chronicle-display-light.woff2"
-      as="font" type="font/woff2" crossorigin />
     <meta
       name="description"
-      content="Seleção de projetos de edição e motion design de Chico Martins — Hero Base, Samsung, Flakes Power, Fortnite, Nike e mais."
+      content="Seleção de projetos de edição de vídeo e motion design de Chico Martins — para marcas, creators e instituições."
     />
     <meta name="theme-color" content="#8C2430" />
     <meta property="og:type" content="website" />
@@ -63,11 +61,11 @@
           <div class="pw-hero-topo">
             <p class="pw-eyebrow mono reveal">// Works</p>
             <nav class="pw-filtros" aria-label="filtrar projetos">
-              <button class="filtro is-active" data-filter="todos">Todos</button>
+              <button class="filtro is-active" data-filter="todos" aria-pressed="true" aria-controls="works-grid">Todos</button>
               <span class="filtro-sep" aria-hidden="true">·</span>
-              <button class="filtro" data-filter="games">Games / Creators</button>
+              <button class="filtro" data-filter="games" aria-pressed="false" aria-controls="works-grid">Games / Creators</button>
               <span class="filtro-sep" aria-hidden="true">·</span>
-              <button class="filtro" data-filter="brands">Brands</button>
+              <button class="filtro" data-filter="brands" aria-pressed="false" aria-controls="works-grid">Brands</button>
             </nav>
           </div>
 
@@ -92,9 +90,10 @@
       <section class="pw-projetos" aria-label="projetos">
         <div class="pw-container">
 
-          <div class="pw-grid" id="works-grid" aria-live="polite">
+          <div class="pw-grids" id="works-grid">
             <!-- preenchido via JS -->
           </div>
+          <p class="sr-only" id="works-anuncio" aria-live="polite" aria-atomic="true"></p>
 
           <noscript>
             <p class="pw-noscript mono">
@@ -130,6 +129,8 @@
         <path d="M9 12h.01M12 12h.01M15 12h.01" />
       </svg>
     </a>
+
+    <!-- include: src/partials/overlay.html -->
 
     <script type="module" src="/src/js/main.js"></script>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="62da9571-bcb4-422a-ac10-9cae6015d0da"></script>

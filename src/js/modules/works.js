@@ -1,29 +1,15 @@
 /* Módulo da página de Works.
-   - Renderiza os projetos a partir do array PROJETOS
-   - Filtra por categoria (todos / games / brands)
-   - Aplica stagger de entrada conforme cada card aparece no viewport
-   - Esconde o aviso "role para ver mais" após o primeiro scroll */
+   - Renderiza 3 grids independentes (todos / games / brands)
+   - Cada grid tem seus próprios cards e spans — controle individual
+   - Filtro faz fade out → troca grid → fade in
+   - Reveal de entrada por IntersectionObserver
+   - Esconde o aviso "role para ver mais" após o primeiro scroll
+   - A11y: aria-pressed nos filtros + região aria-live de anúncio
+   - Navegação por setas entre os cards do grid ativo */
 
-const PROJETOS = [
-  { id: "hero-base",      nome: "Hero Base",      cat: "games",  disc: "Motion Design · Social" },
-  { id: "samsung",        nome: "Samsung",        cat: "brands", disc: "Motion Design · Social" },
-  { id: "flakes-power",   nome: "Flakes Power",   cat: "brands", disc: "Motion Design · Social" },
-  { id: "santander",      nome: "Santander",      cat: "brands", disc: "Motion Design · Social" },
-  { id: "fortnite",       nome: "Fortnite",       cat: "games",  disc: "Motion Design · Social" },
-  { id: "rage",           nome: "Rage",           cat: "games",  disc: "Motion Design · Social" },
-  { id: "nu",             nome: "Nu",             cat: "brands", disc: "Motion Design · Social" },
-  { id: "ca",             nome: "C&A",            cat: "brands", disc: "Motion Design · Social" },
-  { id: "playstation",    nome: "Playstation",    cat: "games",  disc: "Motion Design · Social" },
-  { id: "redbull",        nome: "Redbull",        cat: "brands", disc: "Motion Design · Social" },
-  { id: "nike",           nome: "Nike",           cat: "brands", disc: "Motion Design · Social" },
-  { id: "the-last-of-us", nome: "The Last of Us", cat: "games",  disc: "Motion Design · Social" },
-  { id: "krona",          nome: "Krona",          cat: "brands", disc: "Motion Design · Social" },
-  { id: "ambev",          nome: "Ambev",          cat: "brands", disc: "Motion Design · Social" },
-  { id: "solid",          nome: "Solid",          cat: "brands", disc: "Motion Design · Social" }
-];
+import { PROJETOS } from "./data-projetos.js";
 
-/* Ritmo assimétrico do mobile — cada projeto recebe um par (width, align).
-   Repete ciclos diferentes pra não parecer matemático. */
+/* Ritmo assimétrico do mobile — cada projeto recebe um par (width, align). */
 const RITMO_MOBILE = [
   { w: "100%", a: "flex-start" },
   { w: "86%",  a: "flex-end"   },
@@ -40,49 +26,76 @@ const SETA_SVG =
   '<path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 export function initWorks() {
-  const grid = document.getElementById("works-grid");
-  if (!grid) return;
+  const wrapper = document.getElementById("works-grid");
+  if (!wrapper) return;
 
   const contador = document.getElementById("works-contador");
   const aviso = document.getElementById("works-scroll-aviso");
+  const anuncio = document.getElementById("works-anuncio");
   const botoes = document.querySelectorAll(".filtro");
+  const reduzMov = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- renderiza TODOS os cards uma vez ---- */
-  grid.innerHTML = PROJETOS.map(function (p, i) {
+  /* ---- helpers de render ---- */
+  function cardHTML(p, i) {
+    const ritmo = RITMO_MOBILE[i % RITMO_MOBILE.length];
+    const conteudoThumb = p.img 
+      ? '<img src="' + p.img + '" alt="Capa do projeto ' + p.nome + '" loading="lazy" />'
+      : '<span class="pw-thumb-nome">' + p.nome + ' — thumb</span>';
+
     return (
       '<a class="pw-card pw-card--' + p.id + '" ' +
         'data-id="' + p.id + '" ' +
         'data-cat="' + p.cat + '" ' +
-        'data-ativo="true" ' +
         'href="/works/' + p.id + '.html" ' +
         'aria-label="' + p.nome + ' — abrir projeto" ' +
-        'style="--stagger:' + (i * 40) + 'ms; --m-width:' + ritmo.w + '; --m-align:' + ritmo.a + '">' +
+        'style="--stagger:' + (i * 40) + 'ms; ' +
+               '--m-width:' + ritmo.w + '; ' +
+               '--m-align:' + ritmo.a + '">' +
         '<span class="pw-thumb">' +
-          '<span class="pw-thumb-nome">' + p.nome + ' — thumb</span>' +
+          conteudoThumb +
         '</span>' +
         '<span class="pw-info">' +
+          '<span></span>' + // Espaçador invisível que empurra tudo pra baixo
           '<span class="pw-cat">' +
             (p.cat === "games" ? "Games / Creators" : "Brands") +
           '</span>' +
-          '<span></span>' +
-          '<span>' +
+          '<span class="pw-linha-titulo">' +
             '<span class="pw-nome">' + p.nome + '</span>' +
-            '<span class="pw-disc">' + p.disc + '</span>' +
+            '<span class="pw-seta">' + SETA_SVG + '</span>' +
           '</span>' +
-          '<span class="pw-seta">' + SETA_SVG + '</span>' +
         '</span>' +
       '</a>'
     );
-  }).join("");
-  grid.dataset.filtro = "todos";
+  }
 
-  /* ---- reveal de entrada (IntersectionObserver) ---- */
-  const cards = grid.querySelectorAll(".pw-card");
-  const reduzMov = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function gridHTML(filtro) {
+    const cards = PROJETOS.filter(function (p) {
+      return filtro === "todos" || p.cat === filtro;
+    });
+    return (
+      '<div class="pw-grid pw-grid--' + filtro + '" data-filtro="' + filtro + '">' +
+        cards.map(cardHTML).join("") +
+      '</div>'
+    );
+  }
 
+  /* ---- render dos 3 grids ---- */
+  wrapper.innerHTML = gridHTML("todos") + gridHTML("games") + gridHTML("brands");
+  wrapper.querySelector('.pw-grid[data-filtro="todos"]').classList.add("is-active");
+
+  /* ---- reveal de entrada ---- */
   if (reduzMov || !("IntersectionObserver" in window)) {
-    cards.forEach(function (c) { c.classList.add("is-in"); });
+    wrapper.querySelectorAll(".pw-card").forEach(function (c) {
+      c.classList.add("is-in");
+    });
   } else {
+    /* cards nos grids escondidos: já entram visíveis */
+    wrapper.querySelectorAll('.pw-grid:not(.is-active) .pw-card').forEach(function (c) {
+      c.classList.add("is-in");
+    });
+
+    /* cards no grid ativo: IO revela conforme entra na viewport */
+    const cards = wrapper.querySelectorAll('.pw-grid.is-active .pw-card');
     const obs = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (en) {
         if (!en.isIntersecting) return;
@@ -93,214 +106,118 @@ export function initWorks() {
     cards.forEach(function (c) { obs.observe(c); });
   }
 
-  /* ---- filtro com FLIP ---- */
+  /* ---- filtro: fade out → troca grid → fade in ---- */
   let animando = false;
   let filtroAtual = "todos";
+
+  function trocarGrids(novoFiltro) {
+    wrapper.querySelectorAll(".pw-grid").forEach(function (g) {
+      g.classList.toggle("is-active", g.dataset.filtro === novoFiltro);
+    });
+
+    /* garante que os cards do grid que está sendo mostrado já estejam com .is-in */
+    wrapper.querySelectorAll(
+      '.pw-grid[data-filtro="' + novoFiltro + '"] .pw-card'
+    ).forEach(function (c) {
+      c.classList.add("is-in");
+    });
+
+    const total = wrapper.querySelectorAll(
+      '.pw-grid[data-filtro="' + novoFiltro + '"] .pw-card'
+    ).length;
+
+    if (contador) {
+      contador.textContent = "01 — " + String(total).padStart(2, "0");
+    }
+
+    if (anuncio) {
+      const rotulo = novoFiltro === "todos"
+        ? "todos os projetos"
+        : (novoFiltro === "games" ? "Games e Creators" : "Brands");
+      anuncio.textContent = total + " projetos exibidos em " + rotulo + ".";
+    }
+  }
 
   async function aplicarFiltro(novoFiltro) {
     if (animando || novoFiltro === filtroAtual) return;
     animando = true;
-    grid.classList.add("pw-grid--animando");
 
-    const todos = Array.from(grid.querySelectorAll(".pw-card"));
-    const gridRect = grid.getBoundingClientRect();
+    const DUR_FADE_OUT = 400;
+    const DUR_FADE_IN  = 550;
 
-    /* limpa estado de qualquer animação anterior */
-    todos.forEach(function (card) {
-      card.getAnimations().forEach(function (a) { a.cancel(); });
-      card.classList.remove("pw-card--entrando", "pw-card--saindo");
-      card.style.position = "";
-      card.style.top = "";
-      card.style.left = "";
-      card.style.width = "";
-      card.style.height = "";
-      card.style.transform = "";
-      card.style.opacity = "";
-    });
-
-    const proximoAtivo = new Map();
-    todos.forEach(function (card) {
-      proximoAtivo.set(card.dataset.id, novoFiltro === "todos" || card.dataset.cat === novoFiltro);
-    });
-
-    /* 1. FIRST — mede posições atuais dos visíveis */
-    const primeiraMedida = new Map();
-    todos.forEach(function (card) {
-      if (card.dataset.ativo === "true") {
-        primeiraMedida.set(card.dataset.id, card.getBoundingClientRect());
-      }
-    });
-
-    /* 2. SAINDO — tira do fluxo com position absolute na posição atual */
-    const saindo = [];
-    todos.forEach(function (card) {
-      const ativoAgora = card.dataset.ativo === "true";
-      const ativoDepois = proximoAtivo.get(card.dataset.id);
-      if (ativoAgora && !ativoDepois && !reduzMov) {
-        const r = primeiraMedida.get(card.dataset.id);
-        card.classList.add("pw-card--saindo");
-        card.style.position = "absolute";
-        card.style.top = (r.top - gridRect.top) + "px";
-        card.style.left = (r.left - gridRect.left) + "px";
-        card.style.width = r.width + "px";
-        card.style.height = r.height + "px";
-        saindo.push(card);
-      }
-    });
-
-    /* 3. ENTRANDO — esconde via classe */
-    if (!reduzMov) {
-      todos.forEach(function (card) {
-        const ativoAgora = card.dataset.ativo === "true";
-        const ativoDepois = proximoAtivo.get(card.dataset.id);
-        if (!ativoAgora && ativoDepois) {
-          card.classList.add("pw-card--entrando");
-        }
-      });
-    }
-    grid.dataset.filtro = novoFiltro;
-    /* 4. flip data-ativo — grid reflowa */
-    todos.forEach(function (card) {
-      const ativo = proximoAtivo.get(card.dataset.id);
-      card.dataset.ativo = ativo ? "true" : "false";
-    });
-
-    /* 5. LAST — mede posições novas */
-    const segundaMedida = new Map();
-    todos.forEach(function (card) {
-      if (card.dataset.ativo === "true") {
-        segundaMedida.set(card.dataset.id, card.getBoundingClientRect());
-      }
-    });
-
-    /* 6. INVERT — aplica transform invertido via style, SÍNCRONO.
-       Sem isso, o browser pinta um frame com o layout final antes da WAAPI. */
-    todos.forEach(function (card) {
-      if (card.dataset.ativo !== "true") return;
-      const id = card.dataset.id;
-      const antes = primeiraMedida.get(id);
-      const depois = segundaMedida.get(id);
-      if (!antes || !depois) return;
-      const dx = antes.left - depois.left;
-      const dy = antes.top - depois.top;
-      if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
-        card.style.transform = "translate(" + dx + "px," + dy + "px)";
-      }
-    });
-
-    /* força reflow — o browser não tem chance de pintar o estado "errado" */
-    void grid.offsetHeight;
-
-    /* 7. fade out dos saindo (agendado, paralelo com o resto) */
-    saindo.forEach(function (card) {
-      card.animate(
-        [
-          { opacity: 1, transform: "scale(1)" },
-          { opacity: 0, transform: "scale(0.96)" }
-        ],
-        { duration: 380, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
-      ).finished.then(function () {
-        card.classList.remove("pw-card--saindo");
-        card.style.position = "";
-        card.style.top = "";
-        card.style.left = "";
-        card.style.width = "";
-        card.style.height = "";
-        card.getAnimations().forEach(function (a) { a.cancel(); });
-      });
-    });
-
-    /* 8. PLAY — anima do invertido até 0 */
-    const temSaidas = saindo.length > 0;
-    const delayMovimento = temSaidas ? 200 : 0;
-    const delayEntrada   = temSaidas ? 260 : 120;
-
-    const animacoes = [];
-    todos.forEach(function (card) {
-      if (card.dataset.ativo !== "true") return;
-
-      const id = card.dataset.id;
-      const antes = primeiraMedida.get(id);
-      const depois = segundaMedida.get(id);
-
-      if (antes && depois) {
-        const dx = antes.left - depois.left;
-        const dy = antes.top - depois.top;
-        if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
-          const anim = card.animate(
-            [
-              { transform: "translate(" + dx + "px," + dy + "px)" },
-              { transform: "translate(0,0)" }
-            ],
-            {
-              duration: 850,
-              delay: delayMovimento,
-              easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
-              fill: "forwards"
-            }
-          );
-          anim.finished.then(function () {
-            card.style.transform = "";
-            card.getAnimations().forEach(function (a) { a.cancel(); });
-          });
-          animacoes.push(anim.finished);
-        } else {
-          /* não moveu — limpa o style (que pode ter ficado) */
-          card.style.transform = "";
-        }
-      } else if (!antes && depois) {
-        /* card entrou — fade in */
-        if (reduzMov) {
-          card.classList.remove("pw-card--entrando");
-        } else {
-          const anim = card.animate(
-            [
-              { opacity: 0, transform: "translateY(20px)" },
-              { opacity: 1, transform: "translateY(0)" }
-            ],
-            {
-              duration: 750,
-              delay: delayEntrada,
-              easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
-              fill: "forwards"
-            }
-          );
-          anim.finished.then(function () {
-            card.classList.remove("pw-card--entrando");
-            card.getAnimations().forEach(function (a) { a.cancel(); });
-          });
-          animacoes.push(anim.finished);
-        }
-      }
-    });
-
-    /* 9. contador */
-    if (contador) {
-      const total = String(
-        Array.from(proximoAtivo.values()).filter(Boolean).length
-      ).padStart(2, "0");
-      contador.textContent = "01 — " + total;
+    if (reduzMov) {
+      trocarGrids(novoFiltro);
+      filtroAtual = novoFiltro;
+      animando = false;
+      return;
     }
 
-    /* 10. aguarda animações + margem (o timeout precisa ser maior que
-       delayMovimento + duration = 520 + 850 = 1370ms) */
-    const timeout = new Promise(function (r) { setTimeout(r, 1800); });
-    await Promise.race([Promise.all(animacoes), timeout]);
+    /* 1. fade out do wrapper */
+    await wrapper.animate(
+      [{ opacity: 1 }, { opacity: 0 }],
+      { duration: DUR_FADE_OUT, easing: "ease-in", fill: "forwards" }
+    ).finished;
 
-    grid.classList.remove("pw-grid--animando");
+    /* 2. troca grid (invisível) */
+    trocarGrids(novoFiltro);
+
+    /* 3. fade in */
+    wrapper.getAnimations().forEach(function (a) { a.cancel(); });
+    await wrapper.animate(
+      [{ opacity: 0 }, { opacity: 1 }],
+      { duration: DUR_FADE_IN, easing: "ease-out", fill: "forwards" }
+    ).finished;
+    wrapper.getAnimations().forEach(function (a) { a.cancel(); });
+
     filtroAtual = novoFiltro;
     animando = false;
   }
 
-  /* ---- handlers dos filtros (FORA do aplicarFiltro) ---- */
+  /* ---- handlers dos filtros ---- */
   botoes.forEach(function (btn) {
     btn.addEventListener("click", function () {
       if (animando) return;
       if (btn.classList.contains("is-active")) return;
-      botoes.forEach(function (b) { b.classList.remove("is-active"); });
+
+      botoes.forEach(function (b) {
+        b.classList.remove("is-active");
+        b.setAttribute("aria-pressed", "false");
+      });
       btn.classList.add("is-active");
+      btn.setAttribute("aria-pressed", "true");
+
       aplicarFiltro(btn.dataset.filter);
     });
+  });
+
+  /* ---- navegação por setas entre os cards do grid ativo ----
+     Ordem = DOM do grid. Como o grid é assimétrico, up/down seguem
+     a ordem visual de leitura (esquerda→direita, topo→base). */
+  wrapper.addEventListener("keydown", function (e) {
+    const card = e.target.closest(".pw-card");
+    if (!card) return;
+
+    const grid = card.closest(".pw-grid.is-active");
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll(".pw-card"));
+    const idx = cards.indexOf(card);
+    if (idx === -1) return;
+
+    let alvo = null;
+
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      alvo = cards[idx + 1] || null;
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      alvo = cards[idx - 1] || null;
+    } else {
+      return;
+    }
+
+    if (alvo) {
+      e.preventDefault();
+      alvo.focus();
+    }
   });
 
   /* ---- esconde o aviso no primeiro scroll ---- */

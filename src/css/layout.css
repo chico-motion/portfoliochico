@@ -1,5 +1,5 @@
 .container {
-  width: min(1120px, 92vw);
+  width: min(1120px, 88vw);
   margin-inline: auto;
 }
 .topo {
@@ -12,5 +12,5 @@
 .sobre .container,
 .contato .container,
 .rodape .container {
-  width: min(1350px, 92vw);
+  width: min(1350px, 88vw);
 }

@@ -1,13 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Páginas Principais -->
   <url>
     <loc>https://chicomartins.com.br/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://chicomartins.com.br/works.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <priority>0.8</priority>
   </url>
+
+  <!-- Páginas de Projetos -->
+  <url>
+    <loc>https://chicomartins.com.br/works/flakes-power.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/hero-base.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/krona.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/almeida-junior.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/javali-couros.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/ambev.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/stream-packs.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/solid-gear.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/pituchinhus.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/cit.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/signia-studios.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/wizard.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/prefeitura-gaspar.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/prefeitura-sfs.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/prefeitura-araquari.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chicomartins.com.br/works/toniket.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>

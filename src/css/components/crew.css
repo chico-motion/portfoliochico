@@ -1,16 +1,21 @@
-/* ---------- creators (carrossel manual ‹ ›) ---------- */
+/* ============================================================
+   CREATORS (carrossel manual ‹ ›)
+   3 itens no desktop, 2 no tablet, 1 no mobile.
+   Snap NATIVO (CSS).
+   Conteúdo de cada item CENTRALIZADO — garante que os vãos
+   laterais (esquerda e direita) fiquem simétricos.
+   ============================================================ */
+
 .crew {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: clamp(0.8rem, 2vw, 1.8rem);
+  gap: clamp(0.6rem, 1.5vw, 1.4rem);
   -webkit-user-select: none;
   user-select: none;
-  cursor: grab;
+  min-width: 0;
 }
-.crew:active {
-  cursor: grabbing;
-}
+
 .crew-btn {
   background: none;
   border: none;
@@ -21,6 +26,7 @@
     color 0.2s,
     transform 0.2s;
   flex: 0 0 auto;
+  z-index: 2;
 }
 .crew-btn:hover {
   color: var(--vermelho-vivo);
@@ -31,25 +37,33 @@
   height: 30px;
 }
 
+/* ---------- trilho ---------- */
 .crew-row {
   display: flex;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: clamp(1rem, 2.2vw, 2rem);
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: none;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 0.6rem 0;
+  min-width: 0;
 }
 .crew-row::-webkit-scrollbar {
   display: none;
 }
 
+/* ---------- item ---------- */
 .crew-item {
   display: flex;
   align-items: center;
+  justify-content: center;    /* ⬅ conteúdo centralizado no box */
   gap: clamp(0.9rem, 1.6vw, 1.4rem);
-  flex: 0 0 calc((100% - 2 * clamp(1.5rem, 3vw, 2.5rem)) / 3);
+  flex: 0 0 calc((100% - 2 * clamp(1rem, 2.2vw, 2rem)) / 3);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .avatar {
@@ -61,25 +75,34 @@
   color: rgba(241, 233, 220, 0.55);
   flex: 0 0 auto;
 }
-
-/* bloco de info: 3 linhas compactas, todas alinhadas à esquerda */
+.avatar-img {
+  width: clamp(64px, 6.5vw, 96px);
+  height: clamp(64px, 6.5vw, 96px);
+  border-radius: 50%;
+  object-fit: cover; /* Garante que a foto não distorça */
+  flex: 0 0 auto;
+  /* Opcional: um filtro sutil para combinar com o fundo preto */
+  filter: saturate(0.8) contrast(1.1); 
+}
 .crew-info {
   display: grid;
   justify-items: start;
   align-content: center;
   gap: 0.15rem;
   text-align: left;
+  min-width: 0;
 }
 
 .crew-nome {
   white-space: nowrap;
-  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  font-size: clamp(1.1rem, 1.2vw, 1.2rem);
   letter-spacing: 0.12em;
+  word-spacing: -0.3em;
+  font-weight: 500;
 }
 
-/* número: General Sans Semibold */
 .chip-num {
-  margin: 0.55rem 0 0;
+  margin: 0.2rem 0 0;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -99,7 +122,6 @@
   flex: 0 0 auto;
 }
 
-/* "INSCRITOS": menor e MUITO mais espaçado */
 .crew-label {
   margin: 0.1rem 0 0;
   padding-left: calc(9px + 0.55rem);
@@ -108,4 +130,53 @@
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: rgba(241, 233, 220, 0.5);
+}
+.crew-item:hover .avatar-img {
+  filter: saturate(1) contrast(1);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+
+/* ---------- Tablet pequeno / iPad Mini: 2 por vez ---------- */
+@media (max-width: 860px) {
+  .crew-row { gap: 1.2rem; }
+  .crew-item {
+    flex: 0 0 calc((100% - 1.2rem) / 2);
+  }
+}
+
+/* ---------- Mobile: 1 por vez, centralizado ---------- */
+@media (max-width: 699px) {
+  .crew { gap: 0.6rem; }
+
+  .crew-row {
+    gap: 0;
+    scroll-snap-type: x mandatory;
+  }
+
+  .crew-item {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    gap: 1rem;
+    padding-right: 0;
+    /* justify-content: center já vem do base */
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+  }
+  .crew-nome { font-size: 0.9rem; font-weight: 500; }
+  .chip-num { font-size: 1.4rem; }
+  .crew-label { font-size: 0.56rem; letter-spacing: 0.28em; }
+  .crew-btn svg { width: 26px; height: 26px; }
+}
+
+/* ---------- Mobile pequeno ---------- */
+@media (max-width: 375px) {
+  .avatar { width: 62px; height: 62px; }
+  .chip-num { font-size: 1.2rem; }
 }

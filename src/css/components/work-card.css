@@ -5,7 +5,7 @@
   padding: clamp(4rem, 9vw, 6.5rem) 0;
 }
 .works-teaser .container-works {
-  width: min(1560px, 94vw);
+  width: min(1560px, 88vw);
   margin-inline: auto;
 }
 
@@ -135,15 +135,11 @@
   transform: rotate(-2deg);
   transform-origin: bottom left;
 }
-.work-card:hover .thumb,
-.work-card:focus-visible .thumb {
-  background: rgba(26, 21, 18, 0.45);
-}
 .work-nome {
   display: block;
   margin-top: 1rem;
-  font-family: var(--font-display);
-  font-weight: 200;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-size: clamp(1.2rem, 1.7vw, 1.65rem);
   letter-spacing: -0.005em;
   text-transform: uppercase;
