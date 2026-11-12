@@ -4,9 +4,9 @@ import { reduzMovimento } from "./utils.js";
    modo: "mailto" → abre o app de e-mail do usuário
    modo: "direto" → faz POST pro endpoint configurado */
 const CONFIG_ENVIO = {
-  modo: "mailto",
+  modo: "direto",
   destino: "francisco.maemd@gmail.com",
-  endpoint: ""
+  endpoint: "https://formspree.io/f/mvkagklj"
 };
 
 export function initForm() {
