@@ -166,3 +166,34 @@
     display: none !important;
   }
 }
+/* ============================================================
+   MOBILE: Ajuste do Header para Telas Menores (até 767px)
+   ============================================================ */
+@media (max-width: 767px) {
+  .nav {
+    display: flex; /* Muda de grid para flex para facilitar o alinhamento */
+    justify-content: space-between;
+    align-items: center;
+    min-height: 70px; /* Altura do header no mobile */
+    padding: 0 1rem;
+  }
+
+  /* Esconde os itens que são apenas para Desktop */
+  .nav-tag,
+  .nav-list,
+  .nav .btn-contratar {
+    display: none !important;
+  }
+
+  /* Mostra o botão hambúrguer */
+  .nav-toggle {
+    display: flex; 
+    justify-self: end;
+  }
+
+  /* Garante que a logo fique visível */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+  }
+}
