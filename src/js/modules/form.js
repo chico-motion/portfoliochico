@@ -95,10 +95,19 @@ export function initForm() {
     }
 
     if (CONFIG_ENVIO.modo === "direto" && CONFIG_ENVIO.endpoint) {
+      // Preparando os dados no formato que o Formspree entende melhor
+      const dadosFormspree = {
+        ...dados,
+        _subject: `Novo contato do site: ${dados.assunto}` // Define o assunto do e-mail
+      };
+
       fetch(CONFIG_ENVIO.endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json" // OBRIGATÓRIO para o Formspree responder JSON
+        },
+        body: JSON.stringify(dadosFormspree)
       })
         .then(function (r) {
           if (!r.ok) throw new Error("http " + r.status);
