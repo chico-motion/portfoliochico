@@ -113,7 +113,7 @@ export function initForm() {
           if (!r.ok) throw new Error("http " + r.status);
         })
         .then(function () {
-          setStatus("ok", "mensagem enviada! retorno em até 48h úteis.");
+          setStatus("ok", "Mensagem enviada! Retorno em até 48h úteis.");
           form.reset();
         })
         .catch(function () {
