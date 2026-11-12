@@ -24,6 +24,7 @@
   align-items: center;
   gap: clamp(1.6rem, 3.5vw, 3.4rem);
 }
+
 .nav-item {
   display: inline-flex;
 }
@@ -74,8 +75,12 @@
   background: var(--verde-claro);
 }
 
+/* ============================================================
+   BOTÃO HAMBÚRGUER E MENU MOBILE
+   ============================================================ */
+
 .nav-toggle {
-  display: none;
+  display: none; /* Escondido no desktop */
   flex-direction: column;
   gap: 5px;
   padding: 0.5rem;
@@ -88,9 +93,7 @@
   height: 2px;
   background: var(--preto);
   border-radius: 2px;
-  transition:
-    transform 0.25s,
-    opacity 0.25s;
+  transition: transform 0.25s, opacity 0.25s;
 }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
@@ -101,24 +104,61 @@
 .nav-toggle[aria-expanded="true"] span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
+
+/* Menu Mobile Base */
 .menu-mobile {
-  display: none;
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--header-h));
+  background: var(--offwhite);
+  z-index: 40;
+  
+  /* Por padrão, começa escondido */
+  display: none; 
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+/* A MÁGICA: Quando o JS remove o atributo 'hidden', o menu vira 'flex' e aparece */
+.menu-mobile:not([hidden]) {
+  display: flex;
+  animation: slideDownMenu 0.3s ease forwards;
+}
+
+@keyframes slideDownMenu {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-mobile a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--preto);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 21, 18, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.menu-mobile .btn-contratar {
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--offwhite);
+  border-bottom: none;
+  padding: 1rem;
 }
 
 /* ============================================================
    RESPONSIVO
    ============================================================ */
 
-@media (min-width: 768px) {
-  .menu-mobile {
-    display: none;
-  }
-}
-
-/* ============================================================
-   Tablet (768–900px): nav-list centralizado na tela,
-   botão "contratar" flutua em posição absoluta à direita
-   ============================================================ */
+/* Tablet (768–900px) */
 @media (min-width: 768px) and (max-width: 900px) {
   .nav {
     position: relative;
@@ -138,7 +178,6 @@
     display: flex;
     align-items: center;
     gap: clamp(1rem, 2.2vw, 1.6rem);
-    /* agora centraliza na tela, porque o botão saiu do fluxo */
   }
 
   .nav-logo .brand img {
@@ -150,7 +189,6 @@
     white-space: nowrap;
   }
 
-  /* botão: fora do fluxo, flutua à direita */
   .nav .btn-contratar {
     position: absolute;
     right: 0;
@@ -166,34 +204,33 @@
     display: none !important;
   }
 }
-/* ============================================================
-   MOBILE: Ajuste do Header para Telas Menores (até 767px)
-   ============================================================ */
+
+/* Mobile (Até 767px) */
 @media (max-width: 767px) {
   .nav {
-    display: flex; /* Muda de grid para flex para facilitar o alinhamento */
-    justify-content: space-between;
+    display: flex;
+    justify-content: space-between; /* Separa a logo na esquerda e botão na direita */
     align-items: center;
-    min-height: 70px; /* Altura do header no mobile */
+    min-height: 70px;
     padding: 0 1rem;
   }
 
-  /* Esconde os itens que são apenas para Desktop */
+  /* Esconde os itens do desktop, mas MANTÉM a lista viva para a logo aparecer */
   .nav-tag,
-  .nav-list,
+  .nav-item,
   .nav .btn-contratar {
     display: none !important;
   }
 
-  /* Mostra o botão hambúrguer */
-  .nav-toggle {
-    display: flex; 
-    justify-self: end;
+  /* A lista fica visível apenas para segurar a logo */
+  .nav-list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
   }
 
-  /* Garante que a logo fique visível */
-  .nav-logo {
+  /* Mostra o botão hambúrguer */
+  .nav-toggle {
     display: flex;
-    align-items: center;
   }
 }
