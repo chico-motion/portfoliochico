@@ -24,7 +24,6 @@
   align-items: center;
   gap: clamp(1.6rem, 3.5vw, 3.4rem);
 }
-
 .nav-item {
   display: inline-flex;
 }
@@ -75,12 +74,8 @@
   background: var(--verde-claro);
 }
 
-/* ============================================================
-   BOTÃO HAMBÚRGUER E MENU MOBILE
-   ============================================================ */
-
 .nav-toggle {
-  display: none; /* Escondido no desktop */
+  display: none;
   flex-direction: column;
   gap: 5px;
   padding: 0.5rem;
@@ -93,7 +88,9 @@
   height: 2px;
   background: var(--preto);
   border-radius: 2px;
-  transition: transform 0.25s, opacity 0.25s;
+  transition:
+    transform 0.25s,
+    opacity 0.25s;
 }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
@@ -103,55 +100,6 @@
 }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Menu Mobile Base */
-.menu-mobile {
-  position: fixed;
-  top: var(--header-h);
-  left: 0;
-  width: 100%;
-  height: calc(100vh - var(--header-h));
-  background: var(--offwhite);
-  z-index: 40;
-  
-  /* Por padrão, começa escondido */
-  display: none; 
-  flex-direction: column;
-  padding: 2rem;
-  gap: 1.5rem;
-  overflow-y: auto;
-}
-
-/* A MÁGICA: Quando o JS remove o atributo 'hidden', o menu vira 'flex' e aparece */
-.menu-mobile:not([hidden]) {
-  display: flex;
-  animation: slideDownMenu 0.3s ease forwards;
-}
-
-@keyframes slideDownMenu {
-  from { opacity: 0; transform: translateY(-15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.menu-mobile a {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  text-transform: uppercase;
-  color: var(--preto);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(26, 21, 18, 0.1);
-  padding-bottom: 0.5rem;
-}
-
-.menu-mobile .btn-contratar {
-  margin-top: 1rem;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--offwhite);
-  border-bottom: none;
-  padding: 1rem;
 }
 
 /* ============================================================
@@ -169,26 +117,10 @@
     width: min(1680px, 96vw);
     gap: 0;
   }
-
-  .nav-tag {
-    display: none;
-  }
-
-  .nav-list {
-    display: flex;
-    align-items: center;
-    gap: clamp(1rem, 2.2vw, 1.6rem);
-  }
-
-  .nav-logo .brand img {
-    width: 32px;
-  }
-
-  .nav-link {
-    font-size: 0.92rem;
-    white-space: nowrap;
-  }
-
+  .nav-tag { display: none; }
+  .nav-list { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .nav-logo .brand img { width: 32px; }
+  .nav-link { font-size: 0.92rem; white-space: nowrap; }
   .nav .btn-contratar {
     position: absolute;
     right: 0;
@@ -198,39 +130,89 @@
     padding: 0.45rem 0.9rem;
     white-space: nowrap;
   }
-
-  .menu-mobile,
-  .nav-toggle {
-    display: none !important;
-  }
+  .menu-mobile, .nav-toggle { display: none !important; }
 }
 
 /* Mobile (Até 767px) */
 @media (max-width: 767px) {
+  /* Correção do bug do backdrop-filter que quebra o position fixed */
+  .topo {
+    backdrop-filter: none !important;
+    background: var(--offwhite) !important;
+  }
+
   .nav {
     display: flex;
-    justify-content: space-between; /* Separa a logo na esquerda e botão na direita */
+    justify-content: space-between;
     align-items: center;
     min-height: 70px;
     padding: 0 1rem;
+    position: relative;
+    z-index: 50; /* Garante que o logo e o X fiquem acima do menu */
   }
 
-  /* Esconde os itens do desktop, mas MANTÉM a lista viva para a logo aparecer */
   .nav-tag,
   .nav-item,
   .nav .btn-contratar {
     display: none !important;
   }
 
-  /* A lista fica visível apenas para segurar a logo */
   .nav-list {
     display: flex;
-    justify-content: flex-start;
     margin: 0;
   }
 
-  /* Mostra o botão hambúrguer */
   .nav-toggle {
     display: flex;
+  }
+
+  /* MENU MOBILE CORRIGIDO */
+  .menu-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--offwhite); /* Fundo sólido garantido */
+    z-index: 40; /* Fica atrás do header (logo e X) */
+    padding: calc(var(--header-h) + 2rem) 2rem 2rem; /* Empurra o texto pra baixo do header */
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+  }
+
+  .menu-mobile:not([hidden]) {
+    display: flex;
+    animation: slideDownMenu 0.3s ease forwards;
+  }
+
+  @keyframes slideDownMenu {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 👇 É AQUI QUE VOCÊ MUDA O PESO DA FONTE DOS LINKS 👇 */
+  .menu-mobile a {
+    font-family: var(--font-display);
+    font-size: 2.5rem; /* Aumentei um pouco para ficar mais imponente */
+    font-weight: 200; /* 200 = FININHO / 700 = GROSSO (Negrito) */
+    text-transform: uppercase;
+    color: var(--preto);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(26, 21, 18, 0.1);
+    padding-bottom: 0.5rem;
+  }
+
+  /* Botão Contratar dentro do Menu */
+  .menu-mobile .btn-contratar {
+    margin-top: 1rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--offwhite);
+    border-bottom: none;
+    padding: 1rem;
   }
 }
